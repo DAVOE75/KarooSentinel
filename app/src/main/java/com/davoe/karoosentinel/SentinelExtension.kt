@@ -24,7 +24,7 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
         const val TAG = "SentinelExtension"
         const val BOT_TOKEN = "8621646072:AAFr1Eo4AlJk103bUnM1arCstr5ekqSM42o"
         // TODO: Reemplazar con el CHAT_ID real del usuario
-        const val CHAT_ID = "REPLACE_ME" 
+        const val CHAT_ID = "595159484" 
         // Sensibilidad del movimiento (m/s^2). Bajarlo lo hace más sensible.
         const val MOVEMENT_THRESHOLD = 3.0f 
     }
