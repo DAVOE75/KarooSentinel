@@ -15,6 +15,7 @@
         typeId="arm_button"
         displayName="Alarma Sentinel"
         description="Botón para armar/desarmar la alarma desde pantalla"
-        graphical="true" />
+        graphical="true"
+        icon="@drawable/ic_lock_closed" />
 
 </ExtensionInfo>
