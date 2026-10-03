@@ -10,8 +10,6 @@ attr id
 attr mapLayer
 attr scansDevices
 attr typeId
-drawable ic_launcher
-drawable ic_launcher_round
 mipmap ic_launcher
 mipmap ic_launcher_round
 string alert_movement_detected
