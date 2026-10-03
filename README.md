@@ -16,7 +16,9 @@
 
 * **Detección Inercial Avanzada:** Utiliza el acelerómetro interno del Karoo para detectar la más mínima vibración o movimiento de la bici cuando la alarma está armada.
 * **Geovalla GPS (Geofencing):** Al activar la alarma, Sentinel guarda la posición GPS. Si el acelerómetro falla pero la bici se desplaza más de 20 metros, la alarma se disparará.
-* **Seguimiento y Rastreo en Tiempo Real:** Una vez que la alarma se dispara, el Karoo te enviará tu ubicación en directo por Telegram (enlaces a Google Maps) cada 30 segundos para que puedas rastrear a los ladrones.
+* **Seguimiento y Rastreo en Tiempo Real:** Una vez que la alarma se dispara, el Karoo te enviará tu ubicación en directo por Telegram (enlaces a Google Maps) inmediatamente y cada 30 segundos.
+* **Protección Anti-Inhibidores y Sensores:** Si un radar Garmin Varia o sensor Bluetooth es apagado o desconectado mientras la alarma está activa, recibirás una alerta crítica silenciosa por Telegram.
+* **Protección Anti-Apagado:** Si el ladrón intenta apagar el Karoo mientras la alarma está activa, el sistema interceptará la señal, hará sonar la sirena y enviará una alerta crítica con la última posición GPS conocida antes de apagarse.
 * **Alerta Sonora Nativa:** Envía patrones de pitidos de alta frecuencia directamente al "beeper" interno del dispositivo para ahuyentar el posible robo.
 * **Modo Trampa Silenciosa:** Permite armar el sistema sin que emita luz ni sonido al activarse el robo. Recibirás el SMS silenciosamente en tu móvil para poder pillar al ladrón in fraganti.
 * **Protección por PIN:** Evita que el ladrón pueda desactivar la alarma desde la pantalla obligándole a introducir un PIN de seguridad de 4 dígitos.
@@ -86,7 +88,9 @@ No necesitas quitarte los guantes ni tocar la pantalla del GPS para armar la ala
 
 * **Advanced Inertial Detection:** Uses the Karoo's internal accelerometer to detect the slightest vibration or movement of the bike when the alarm is armed.
 * **GPS Geofencing:** When arming the alarm, Sentinel saves the GPS position. If the accelerometer fails but the bike moves more than 20 meters, the alarm will trigger.
-* **Real-time Live Tracking:** Once the alarm is triggered, the Karoo will send you its live location via Telegram (Google Maps links) every 30 seconds so you can track the thieves.
+* **Real-time Live Tracking:** Once the alarm is triggered, the Karoo will send you its live location via Telegram (Google Maps links) immediately and every 30 seconds.
+* **Anti-Jammer & Sensor Drop Protection:** If a Garmin Varia radar or Bluetooth sensor is turned off or disconnected while the alarm is active, you will receive a silent critical alert via Telegram.
+* **Anti-Shutdown Protection:** If the thief tries to turn off the Karoo while the alarm is active, the system will intercept the signal, sound the siren, and send a critical alert with the last known GPS position before shutting down.
 * **Native Sound Alert (Hardware Beeper):** Sends high-frequency beep patterns directly to the device's internal "beeper" to deter potential theft.
 * **Silent Trap Mode:** Allows you to arm the system without emitting light or sound when the theft is triggered. You will receive the SMS silently on your phone so you can catch the thief red-handed.
 * **PIN Protection:** Prevents the thief from deactivating the alarm from the screen by forcing them to enter a 4-digit security PIN.

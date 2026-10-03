@@ -81,6 +81,26 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
         override fun onProviderDisabled(provider: String) {}
     }
 
+    private val securityReceiver = object : android.content.BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: android.content.Intent?) {
+            if (!isArmed) return
+            
+            when (intent?.action) {
+                android.content.Intent.ACTION_SHUTDOWN -> {
+                    Log.w(TAG, "Device is shutting down while armed!")
+                    sendTelegramMessage("⚠️ ALERTA CRÍTICA: ¡El Karoo se está APAGANDO mientras la alarma está activada!")
+                    triggerAlarm()
+                }
+                android.bluetooth.BluetoothDevice.ACTION_ACL_DISCONNECTED -> {
+                    val device = intent.getParcelableExtra<android.bluetooth.BluetoothDevice>(android.bluetooth.BluetoothDevice.EXTRA_DEVICE)
+                    Log.w(TAG, "Bluetooth device disconnected: ${device?.name}")
+                    // No hacemos saltar la sirena directamente para evitar falsos positivos por pérdida de señal, pero sí avisamos a Telegram.
+                    sendTelegramMessage("📡 ALERTA DE SENSOR: El dispositivo Bluetooth (${device?.name ?: "desconocido"}) se ha desconectado.")
+                }
+            }
+        }
+    }
+
     override fun onCreate() {
         super.onCreate()
         Log.d(TAG, "Karoo Sentinel Started")
@@ -144,6 +164,12 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
             
             val silentMode = sharedPrefs.getBoolean("SILENT_MODE", false)
             
+            val filter = android.content.IntentFilter().apply {
+                addAction(android.content.Intent.ACTION_SHUTDOWN)
+                addAction(android.bluetooth.BluetoothDevice.ACTION_ACL_DISCONNECTED)
+            }
+            registerReceiver(securityReceiver, filter)
+            
             // Beep de confirmación (activado)
             if (volume > 0 && !silentMode) {
                 scope.launch {
@@ -160,6 +186,9 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
             sendTelegramMessage(getString(R.string.tg_armed))
         } else {
             sensorManager.unregisterListener(this)
+            try {
+                unregisterReceiver(securityReceiver)
+            } catch (e: Exception) {}
             try {
                 locationManager.removeUpdates(locationListener)
             } catch (e: Exception) {}
@@ -229,6 +258,22 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
         
         // Enviar mensaje de alerta a Telegram siempre
         sendTelegramMessage(getString(R.string.tg_alert))
+        
+        try {
+            if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                val loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) 
+                          ?: locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+                          ?: parkedLocation
+                
+                if (loc != null) {
+                    val mapsUrl = "https://www.google.com/maps/search/?api=1&query=${loc.latitude},${loc.longitude}"
+                    sendTelegramMessage("📍 ÚLTIMA UBICACIÓN GPS:\n$mapsUrl")
+                    lastLocationSentTime = System.currentTimeMillis()
+                }
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error getting last location", e)
+        }
         
         if (!silentMode) {
             // Lanzar la pantalla de alarma
@@ -300,6 +345,9 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
     override fun onDestroy() {
         super.onDestroy()
         sensorManager.unregisterListener(this)
+        try {
+            unregisterReceiver(securityReceiver)
+        } catch (e: Exception) {}
         try {
             locationManager.removeUpdates(locationListener)
         } catch (e: Exception) {}
