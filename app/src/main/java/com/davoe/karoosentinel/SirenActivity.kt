@@ -59,7 +59,7 @@ class SirenActivity : ComponentActivity() {
         val alertText = TextView(this).apply {
             text = getString(R.string.alert_movement_detected)
             setTextColor(Color.WHITE)
-            textSize = 32f
+            textSize = 28f
             typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
             gravity = Gravity.CENTER
             letterSpacing = 0.05f
