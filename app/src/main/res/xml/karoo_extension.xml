@@ -11,4 +11,12 @@
         actionId="arm_sentinel"
         displayName="@string/bonus_action_name" />
 
+    <DataTypes>
+        <DataType
+            typeId="arm_button"
+            displayName="Alarma Sentinel"
+            description="Botón para armar/desarmar la alarma desde pantalla"
+            graphical="true" />
+    </DataTypes>
+
 </Extension>

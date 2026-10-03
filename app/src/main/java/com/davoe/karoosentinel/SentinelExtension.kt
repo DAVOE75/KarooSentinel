@@ -22,6 +22,52 @@ import kotlin.math.abs
 
 class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventListener {
 
+    private val emitters = mutableListOf<io.hammerhead.karooext.internal.ViewEmitter>()
+
+    override val types: List<io.hammerhead.karooext.extension.DataTypeImpl> = listOf(
+        object : io.hammerhead.karooext.extension.DataTypeImpl("karoo_sentinel", "arm_button") {
+            override fun startView(context: Context, config: io.hammerhead.karooext.models.ViewConfig, emitter: io.hammerhead.karooext.internal.ViewEmitter) {
+                emitters.add(emitter)
+                updateWidgetView(context, emitter)
+            }
+        }
+    )
+
+    private fun updateWidgetView(context: Context, emitter: io.hammerhead.karooext.internal.ViewEmitter) {
+        try {
+            val sharedPrefs = context.getSharedPreferences("SentinelPrefs", Context.MODE_PRIVATE)
+            val isArmed = sharedPrefs.getBoolean("IS_ARMED", false)
+            val views = android.widget.RemoteViews(context.packageName, R.layout.widget_arm_button)
+            if (isArmed) {
+                views.setImageViewResource(R.id.widget_icon, R.drawable.ic_lock_closed)
+            } else {
+                views.setImageViewResource(R.id.widget_icon, R.drawable.ic_lock_open)
+            }
+            
+            val intent = android.content.Intent(context, SentinelExtension::class.java).apply {
+                action = "com.davoe.karoosentinel.TOGGLE_ALARM"
+            }
+            val pendingIntent = android.app.PendingIntent.getService(context, 0, intent, android.app.PendingIntent.FLAG_UPDATE_CURRENT or android.app.PendingIntent.FLAG_IMMUTABLE)
+            views.setOnClickPendingIntent(R.id.widget_icon, pendingIntent)
+            
+            emitter.updateView(views)
+        } catch (e: Exception) {
+            Log.e(TAG, "Error updating widget view", e)
+        }
+    }
+
+    private fun updateAllWidgets() {
+        val iterator = emitters.iterator()
+        while (iterator.hasNext()) {
+            val emitter = iterator.next()
+            try {
+                updateWidgetView(this, emitter)
+            } catch (e: Exception) {
+                iterator.remove() // Limpiar si ya no es válido
+            }
+        }
+    }
+
     companion object {
         const val TAG = "SentinelExtension"
         const val BOT_TOKEN = "8621646072:AAFr1Eo4AlJk103bUnM1arCstr5ekqSM42o"
@@ -129,7 +175,18 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
     }
 
     private fun toggleAlarm() {
-        setAlarmState(!isArmed)
+        val sharedPrefs = getSharedPreferences("SentinelPrefs", Context.MODE_PRIVATE)
+        val isArmed = sharedPrefs.getBoolean("IS_ARMED", false)
+        val pin = sharedPrefs.getString("SECURITY_PIN", "")
+        
+        if (isArmed && !pin.isNullOrEmpty()) {
+            val intent = android.content.Intent(this, MainActivity::class.java).apply {
+                flags = android.content.Intent.FLAG_ACTIVITY_NEW_TASK or android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
+            }
+            startActivity(intent)
+        } else {
+            setAlarmState(!isArmed)
+        }
     }
 
     private fun setAlarmState(armed: Boolean) {
@@ -144,6 +201,8 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
         val intent = android.content.Intent("com.davoe.karoosentinel.STATE_CHANGED")
         intent.setPackage(packageName)
         sendBroadcast(intent)
+        
+        updateAllWidgets()
         
         if (isArmed) {
             isFirstReading = true
