@@ -1,0 +1,18 @@
+<lint-module
+    format="1"
+    dir="C:\KarooSentinel\app"
+    name=":app"
+    type="APP"
+    maven="KarooSentinel:app:unspecified"
+    agpVersion="8.7.3"
+    buildFolder="build"
+    bootClassPath="C:\Users\davoe\AppData\Local\Android\Sdk\platforms\android-34\android.jar;C:\Users\davoe\AppData\Local\Android\Sdk\build-tools\34.0.0\core-lambda-stubs.jar"
+    javaSourceLevel="1.8"
+    compileTarget="android-34"
+    neverShrinking="true">
+  <lintOptions
+      absolutePaths="true"
+      checkReleaseBuilds="true"
+      explainIssues="true"/>
+  <variant name="release"/>
+</lint-module>

@@ -1,0 +1,183 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.davoe.karoosentinel"
+4    android:versionCode="106"
+5    android:versionName="0.0.6" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+9        android:targetSdkVersion="34" />
+10
+11    <!-- Permisos para Bluetooth/BLE y red -->
+12    <uses-permission android:name="android.permission.BLUETOOTH" />
+12-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:6:5-68
+12-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:6:22-65
+13    <uses-permission android:name="android.permission.INTERNET" />
+13-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:7:5-67
+13-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:7:22-64
+14    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+14-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:8:5-74
+14-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:8:22-71
+15    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+15-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:9:5-76
+15-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:9:22-73
+16    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+16-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:10:5-73
+16-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:10:22-70
+17    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+17-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:11:5-79
+17-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:11:22-76
+18    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+18-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:12:5-81
+18-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:12:22-78
+19
+20    <permission
+20-->[androidx.core:core:1.13.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\fda7b596edb0d1aaa81122ce1a1ab19b\transformed\core-1.13.1\AndroidManifest.xml:22:5-24:47
+21        android:name="com.davoe.karoosentinel.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+21-->[androidx.core:core:1.13.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\fda7b596edb0d1aaa81122ce1a1ab19b\transformed\core-1.13.1\AndroidManifest.xml:23:9-81
+22        android:protectionLevel="signature" />
+22-->[androidx.core:core:1.13.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\fda7b596edb0d1aaa81122ce1a1ab19b\transformed\core-1.13.1\AndroidManifest.xml:24:9-44
+23
+24    <uses-permission android:name="com.davoe.karoosentinel.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+24-->[androidx.core:core:1.13.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\fda7b596edb0d1aaa81122ce1a1ab19b\transformed\core-1.13.1\AndroidManifest.xml:26:5-97
+24-->[androidx.core:core:1.13.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\fda7b596edb0d1aaa81122ce1a1ab19b\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
+25
+26    <application
+26-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:14:5-51:19
+27        android:allowBackup="true"
+27-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:15:9-35
+28        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+28-->[androidx.core:core:1.13.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\fda7b596edb0d1aaa81122ce1a1ab19b\transformed\core-1.13.1\AndroidManifest.xml:28:18-86
+29        android:extractNativeLibs="false"
+30        android:icon="@mipmap/ic_launcher"
+30-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:16:9-43
+31        android:label="Karoo Sentinel"
+31-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:17:9-39
+32        android:roundIcon="@mipmap/ic_launcher_round"
+32-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:18:9-54
+33        android:supportsRtl="true"
+33-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:19:9-35
+34        android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+34-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:20:9-65
+35
+36        <!-- Actividad principal requerida para salir del estado "stopped" -->
+37        <activity
+37-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:23:9-31:20
+38            android:name="com.davoe.karoosentinel.MainActivity"
+38-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:24:13-41
+39            android:exported="true"
+39-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:25:13-36
+40            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+40-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:26:13-69
+41            <intent-filter>
+41-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:27:13-30:29
+42                <action android:name="android.intent.action.MAIN" />
+42-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:28:17-69
+42-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:28:25-66
+43
+44                <category android:name="android.intent.category.LAUNCHER" />
+44-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:29:17-77
+44-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:29:27-74
+45            </intent-filter>
+46        </activity>
+47        <activity
+47-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:33:9-37:72
+48            android:name="com.davoe.karoosentinel.SirenActivity"
+48-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:34:13-42
+49            android:exported="false"
+49-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:35:13-37
+50            android:showOnLockScreen="true"
+50-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:36:13-44
+51            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+51-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:37:13-69
+52
+53        <!-- Declaración del servicio de la extensión -->
+54        <service
+54-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:40:9-49:19
+55            android:name="com.davoe.karoosentinel.SentinelExtension"
+55-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:41:13-46
+56            android:exported="true" >
+56-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:42:13-36
+57            <intent-filter>
+57-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:43:13-45:29
+58                <action android:name="io.hammerhead.karooext.KAROO_EXTENSION" />
+58-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:44:17-81
+58-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:44:25-78
+59            </intent-filter>
+60
+61            <meta-data
+61-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:46:13-48:59
+62                android:name="io.hammerhead.karooext.EXTENSION_INFO"
+62-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:47:17-69
+63                android:resource="@xml/karoo_extension" />
+63-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:48:17-56
+64        </service>
+65
+66        <provider
+66-->[androidx.emoji2:emoji2:1.3.0] C:\Users\davoe\.gradle\caches\9.5.0\transforms\320344c18b6ec7f998f73972b20ae237\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+67            android:name="androidx.startup.InitializationProvider"
+67-->[androidx.emoji2:emoji2:1.3.0] C:\Users\davoe\.gradle\caches\9.5.0\transforms\320344c18b6ec7f998f73972b20ae237\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:25:13-67
+68            android:authorities="com.davoe.karoosentinel.androidx-startup"
+68-->[androidx.emoji2:emoji2:1.3.0] C:\Users\davoe\.gradle\caches\9.5.0\transforms\320344c18b6ec7f998f73972b20ae237\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:26:13-68
+69            android:exported="false" >
+69-->[androidx.emoji2:emoji2:1.3.0] C:\Users\davoe\.gradle\caches\9.5.0\transforms\320344c18b6ec7f998f73972b20ae237\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:27:13-37
+70            <meta-data
+70-->[androidx.emoji2:emoji2:1.3.0] C:\Users\davoe\.gradle\caches\9.5.0\transforms\320344c18b6ec7f998f73972b20ae237\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+71                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+71-->[androidx.emoji2:emoji2:1.3.0] C:\Users\davoe\.gradle\caches\9.5.0\transforms\320344c18b6ec7f998f73972b20ae237\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:30:17-75
+72                android:value="androidx.startup" />
+72-->[androidx.emoji2:emoji2:1.3.0] C:\Users\davoe\.gradle\caches\9.5.0\transforms\320344c18b6ec7f998f73972b20ae237\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:31:17-49
+73            <meta-data
+73-->[androidx.lifecycle:lifecycle-process:2.8.7] C:\Users\davoe\.gradle\caches\9.5.0\transforms\32cd2790fceb1fe0b5013d205c830aa4\transformed\jetified-lifecycle-process-2.8.7\AndroidManifest.xml:29:13-31:52
+74                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+74-->[androidx.lifecycle:lifecycle-process:2.8.7] C:\Users\davoe\.gradle\caches\9.5.0\transforms\32cd2790fceb1fe0b5013d205c830aa4\transformed\jetified-lifecycle-process-2.8.7\AndroidManifest.xml:30:17-78
+75                android:value="androidx.startup" />
+75-->[androidx.lifecycle:lifecycle-process:2.8.7] C:\Users\davoe\.gradle\caches\9.5.0\transforms\32cd2790fceb1fe0b5013d205c830aa4\transformed\jetified-lifecycle-process-2.8.7\AndroidManifest.xml:31:17-49
+76            <meta-data
+76-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\82de58256661d44cda086db02c96bb60\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+77                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+77-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\82de58256661d44cda086db02c96bb60\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+78                android:value="androidx.startup" />
+78-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\82de58256661d44cda086db02c96bb60\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+79        </provider>
+80
+81        <receiver
+81-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\82de58256661d44cda086db02c96bb60\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+82            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+82-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\82de58256661d44cda086db02c96bb60\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+83            android:directBootAware="false"
+83-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\82de58256661d44cda086db02c96bb60\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+84            android:enabled="true"
+84-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\82de58256661d44cda086db02c96bb60\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+85            android:exported="true"
+85-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\82de58256661d44cda086db02c96bb60\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+86            android:permission="android.permission.DUMP" >
+86-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\82de58256661d44cda086db02c96bb60\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+87            <intent-filter>
+87-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\82de58256661d44cda086db02c96bb60\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+88                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+88-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\82de58256661d44cda086db02c96bb60\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+88-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\82de58256661d44cda086db02c96bb60\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+89            </intent-filter>
+90            <intent-filter>
+90-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\82de58256661d44cda086db02c96bb60\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+91                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+91-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\82de58256661d44cda086db02c96bb60\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+91-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\82de58256661d44cda086db02c96bb60\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+92            </intent-filter>
+93            <intent-filter>
+93-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\82de58256661d44cda086db02c96bb60\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+94                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+94-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\82de58256661d44cda086db02c96bb60\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+94-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\82de58256661d44cda086db02c96bb60\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+95            </intent-filter>
+96            <intent-filter>
+96-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\82de58256661d44cda086db02c96bb60\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+97                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+97-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\82de58256661d44cda086db02c96bb60\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+97-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\82de58256661d44cda086db02c96bb60\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+98            </intent-filter>
+99        </receiver>
+100    </application>
+101
+102</manifest>

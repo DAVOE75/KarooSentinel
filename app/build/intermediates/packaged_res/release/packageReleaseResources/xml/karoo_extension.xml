@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Extension
+    id="karoo_sentinel"
+    displayName="Karoo Sentinel"
+    icon="@mipmap/ic_launcher"
+    scansDevices="false"
+    mapLayer="false"
+    fitFile="false">
+
+    <BonusAction
+        actionId="arm_sentinel"
+        displayName="@string/bonus_action_name" />
+
+</Extension>

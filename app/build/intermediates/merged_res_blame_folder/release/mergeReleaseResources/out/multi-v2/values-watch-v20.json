@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.davoe.karoosentinel.app-mergeReleaseResources-2:/values-watch-v20/values-watch-v20.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\davoe\\.gradle\\caches\\9.5.0\\transforms\\59b0ac5c92207b1e7002312a933d1f09\\transformed\\appcompat-1.7.0\\res\\values-watch-v20\\values-watch-v20.xml",
+                    "from": {
+                        "startLines": "2,5,8",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,214,385",
+                        "endLines": "4,7,10",
+                        "endColumns": "12,12,12",
+                        "endOffsets": "209,380,553"
+                    }
+                }
+            ]
+        }
+    ]
+}
