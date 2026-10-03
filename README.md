@@ -15,9 +15,11 @@
 ### ✨ Características Principales
 
 <p align="center">
-  <img src="assets/main_screen.png" alt="Pantalla Principal" width="250"/>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="assets/settings_screen.png" alt="Ajustes" width="250"/>
+  <img src="assets/main_screen.png" alt="Pantalla Principal" width="230"/>
+  &nbsp;&nbsp;
+  <img src="assets/settings_screen.png" alt="Ajustes" width="230"/>
+  &nbsp;&nbsp;
+  <img src="assets/siren_screen.png" alt="Sirena" width="230"/>
 </p>
 
 * **Detección de Movimiento Acelerométrica:** Utiliza el acelerómetro interno del Karoo para detectar la más mínima vibración o movimiento de la bicicleta cuando la alarma está armada.
@@ -79,9 +81,11 @@ No necesitas quitarte los guantes ni tocar la pantalla del GPS para armar la ala
 ### ✨ Key Features
 
 <p align="center">
-  <img src="assets/main_screen.png" alt="Main Screen" width="250"/>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="assets/settings_screen.png" alt="Settings" width="250"/>
+  <img src="assets/main_screen.png" alt="Main Screen" width="230"/>
+  &nbsp;&nbsp;
+  <img src="assets/settings_screen.png" alt="Settings" width="230"/>
+  &nbsp;&nbsp;
+  <img src="assets/siren_screen.png" alt="Siren" width="230"/>
 </p>
 
 * **Accelerometer Motion Detection:** Uses the Karoo's internal accelerometer to detect the slightest vibration or movement of the bike when the alarm is armed.
