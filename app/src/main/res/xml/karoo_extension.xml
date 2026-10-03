@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Extension
+<ExtensionInfo
     id="karoo_sentinel"
     displayName="Karoo Sentinel"
     icon="@drawable/ic_launcher"
@@ -11,12 +11,10 @@
         actionId="arm_sentinel"
         displayName="@string/bonus_action_name" />
 
-    <data-types>
-        <data-type
-            typeId="arm_button"
-            displayName="Alarma Sentinel"
-            description="Botón para armar/desarmar la alarma desde pantalla"
-            graphical="true" />
-    </data-types>
+    <DataType
+        typeId="arm_button"
+        displayName="Alarma Sentinel"
+        description="Botón para armar/desarmar la alarma desde pantalla"
+        graphical="true" />
 
-</Extension>
+</ExtensionInfo>
