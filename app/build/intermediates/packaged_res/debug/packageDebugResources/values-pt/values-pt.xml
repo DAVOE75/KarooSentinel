@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="alert_movement_detected">MOVIMIENTO\nDETECTADO</string>
-    <string name="alert_subtitle">La alarma está sonando y se ha notificado a tu Telegram.</string>
+    <string name="alert_movement_detected">MOVIMENTO\nDETETADO</string>
+    <string name="alert_subtitle">O alarme está a tocar e o seu Telegram foi notificado.</string>
     <string name="app_name">Karoo Sentinel</string>
-    <string name="bonus_action_name">Alarma Anti-Robo</string>
-    <string name="btn_activate">ACTIVAR ALARMA</string>
-    <string name="btn_deactivate">DESACTIVAR</string>
-    <string name="btn_deactivate_alarm">DESACTIVAR ALARMA</string>
+    <string name="bonus_action_name">Alarme Antirroubo</string>
+    <string name="btn_activate">ATIVAR ALARME</string>
+    <string name="btn_deactivate">DESATIVAR</string>
+    <string name="btn_deactivate_alarm">DESATIVAR ALARME</string>
     <string name="btn_save">GUARDAR</string>
-    <string name="chat_id_hint">Tu ID numérico</string>
-    <string name="pin_desc">Exigir un PIN de 4 dígitos para desactivar la alarma desde la pantalla.</string>
+    <string name="chat_id_hint">A sua ID numérica</string>
+    <string name="pin_desc">Exigir um PIN de 4 dígitos para desativar o alarme pelo ecrã.</string>
     <string name="pin_dialog_cancel">Cancelar</string>
-    <string name="pin_dialog_error">PIN Incorrecto</string>
-    <string name="pin_dialog_ok">Aceptar</string>
-    <string name="pin_dialog_title">Introduzca el PIN</string>
-    <string name="pin_hint">Ej: 1234 (Vacío = Sin PIN)</string>
-    <string name="pin_label">PIN de Seguridad (Opcional)</string>
-    <string name="sensitivity_desc">Ajusta cuánto movimiento es necesario para disparar la alarma.</string>
-    <string name="sensitivity_label">Sensibilidad del Sensor</string>
-    <string name="settings_title">⚙️ CONFIGURACIÓN</string>
-    <string name="silent_mode_desc">La alarma no sonará ni brillará, solo enviará la alerta a Telegram para no alertar al ladrón.</string>
-    <string name="silent_mode_label">Modo Trampa (Silencioso)</string>
-    <string name="status_active">VIGILANCIA ACTIVA</string>
-    <string name="status_desc_inactive">La bicicleta no está siendo vigilada.</string>
-    <string name="status_inactive">SISTEMA INACTIVO</string>
-    <string name="subtitle">Sistema de Seguridad Avanzado</string>
-    <string name="telegram_desc">Envía un mensaje a @userinfobot en Telegram y pega aquí tu ID numérico.</string>
+    <string name="pin_dialog_error">PIN Incorreto</string>
+    <string name="pin_dialog_ok">OK</string>
+    <string name="pin_dialog_title">Insira o PIN</string>
+    <string name="pin_hint">Ex: 1234 (Vazio = Sem PIN)</string>
+    <string name="pin_label">PIN de Segurança (Opcional)</string>
+    <string name="sensitivity_desc">Ajuste quanto movimento é necessário para disparar o alarme.</string>
+    <string name="sensitivity_label">Sensibilidade do Sensor</string>
+    <string name="settings_title">⚙️ CONFIGURAÇÃO</string>
+    <string name="silent_mode_desc">O alarme não soará nem piscará, apenas enviará o alerta do Telegram para não assustar o ladrão.</string>
+    <string name="silent_mode_label">Modo Armadilha Silenciosa</string>
+    <string name="status_active">VIGILÂNCIA ATIVA</string>
+    <string name="status_desc_inactive">A bicicleta não está a ser vigiada.</string>
+    <string name="status_inactive">SISTEMA INATIVO</string>
+    <string name="subtitle">Sistema de Segurança Avançado</string>
+    <string name="telegram_desc">Envie uma mensagem para @userinfobot no Telegram e cole a sua ID numérica aqui.</string>
     <string name="telegram_label">💬 Telegram Chat ID</string>
-    <string name="tg_alert">🚨 ¡ALERTA! ¡Están moviendo tu bicicleta! 🚨</string>
-    <string name="tg_armed">🔒 Alarma Karoo activada. Tu bici está vigilada.</string>
-    <string name="tg_disarmed">🔓 Alarma Karoo desactivada.</string>
-    <string name="toast_id_empty">El ID no puede estar vacío</string>
-    <string name="toast_id_saved">ID Guardado Correctamente</string>
-    <string name="volume_desc">Desliza a la izquierda del todo para activar el modo silencioso.</string>
-    <string name="volume_label">🔊 Volumen de Sirena</string>
+    <string name="tg_alert">🚨 ALERTA! Estão a mover a sua bicicleta! 🚨</string>
+    <string name="tg_armed">🔒 Alarme Karoo ativado. A sua bicicleta está vigiada.</string>
+    <string name="tg_disarmed">🔓 Alarme Karoo desativado.</string>
+    <string name="toast_id_empty">A ID não pode estar vazia</string>
+    <string name="toast_id_saved">ID guardado com sucesso</string>
+    <string name="volume_desc">Deslize tudo para a esquerda para ativar o modo silencioso.</string>
+    <string name="volume_label">🔊 Volume da Sirene</string>
 </resources>
