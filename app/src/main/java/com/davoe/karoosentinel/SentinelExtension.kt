@@ -291,6 +291,8 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
         if (alarmJob?.isActive == true) return
         
         val sharedPrefs = getSharedPreferences("SentinelPrefs", Context.MODE_PRIVATE)
+        if (sharedPrefs.getBoolean("SILENT_MODE", false)) return
+        
         val volume = sharedPrefs.getInt("ALARM_VOLUME", 100)
         if (volume == 0) return // Si está a 0, no hacer ruido
         
