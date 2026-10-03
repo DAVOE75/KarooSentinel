@@ -261,15 +261,25 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
         
         try {
             if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
-                val loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) 
-                          ?: locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-                          ?: parkedLocation
+                var bestLocation: Location? = null
+                val providers = locationManager.getProviders(true)
+                for (provider in providers) {
+                    val l = locationManager.getLastKnownLocation(provider) ?: continue
+                    if (bestLocation == null || l.accuracy < bestLocation.accuracy) {
+                        bestLocation = l
+                    }
+                }
+                val loc = bestLocation ?: parkedLocation
                 
                 if (loc != null) {
                     val mapsUrl = "https://www.google.com/maps/search/?api=1&query=${loc.latitude},${loc.longitude}"
                     sendTelegramMessage("📍 ÚLTIMA UBICACIÓN GPS:\n$mapsUrl")
                     lastLocationSentTime = System.currentTimeMillis()
+                } else {
+                    sendTelegramMessage("📡 Esperando señal GPS... (Buscando satélites, se enviará ubicación al conectar)")
                 }
+            } else {
+                sendTelegramMessage("⚠️ Permiso de Ubicación (GPS) denegado en el Karoo.")
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error getting last location", e)

@@ -32,7 +32,7 @@
     <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"Condividi tramite <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
     <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"Comprimi"</string>
     <string name="alert_movement_detected">MOVIMENTO\nRILEVATO</string>
-    <string name="alert_subtitle">L'allarme sta suonando ed è stato notificato al tuo Telegram.</string>
+    <string name="alert_subtitle">L\'allarme sta suonando ed è stato notificato al tuo Telegram.</string>
     <string name="app_name">Karoo Sentinel</string>
     <string name="bonus_action_name">Allarme Antifurto</string>
     <string name="bottomsheet_action_collapse">Comprimi riquadro inferiore</string>
@@ -185,7 +185,7 @@
     <string msgid="542007171693138492" name="navigation_menu">"Menu di navigazione"</string>
     <string msgid="6610465462668679431" name="not_selected">"Opzione non selezionata"</string>
     <string name="password_toggle_content_description">Mostra password</string>
-    <string name="pin_desc">Richiede un PIN di 4 cifre per disattivare l'allarme dallo schermo.</string>
+    <string name="pin_desc">Richiede un PIN di 4 cifre per disattivare l\'allarme dallo schermo.</string>
     <string name="pin_dialog_cancel">Annulla</string>
     <string name="pin_dialog_error">PIN Errato</string>
     <string name="pin_dialog_ok">OK</string>
@@ -198,12 +198,12 @@
     <string name="searchview_clear_text_content_description">Cancella testo</string>
     <string name="searchview_navigation_content_description">Indietro</string>
     <string msgid="6043586758067023" name="selected">"Elemento selezionato"</string>
-    <string name="sensitivity_desc">Regola quanto movimento è necessario per far scattare l'allarme.</string>
+    <string name="sensitivity_desc">Regola quanto movimento è necessario per far scattare l\'allarme.</string>
     <string name="sensitivity_label">Sensibilità Sensore</string>
     <string name="settings_title">⚙️ CONFIGURAZIONE</string>
     <string name="side_sheet_accessibility_pane_title">Scheda secondaria</string>
-    <string name="silent_mode_desc">L'allarme non suonerà né lampeggerà, invierà solo l'avviso a Telegram per non allarmare il ladro.</string>
-    <string name="silent_mode_label">Modalità Trappola (Silenziosa)</string>
+    <string name="silent_mode_desc">L\'allarme non suonerà né lampeggerà, invierà solo l\'avviso a Telegram per non allarmare il ladro.</string>
+    <string name="silent_mode_label">Modalità Trappola (Silenciosa)</string>
     <string msgid="4139871816613051306" name="state_empty">"Vuoto"</string>
     <string msgid="5834637030682409883" name="state_off">"Off"</string>
     <string msgid="1490883874751719580" name="state_on">"On"</string>
@@ -220,7 +220,7 @@
     <string name="tg_alert">🚨 ALLERTA! Stanno muovendo la tua bicicletta! 🚨</string>
     <string name="tg_armed">🔒 Allarme Karoo attivato. La tua bici è sorvegliata.</string>
     <string name="tg_disarmed">🔓 Allarme Karoo disattivato.</string>
-    <string name="toast_id_empty">L'ID non può essere vuoto</string>
+    <string name="toast_id_empty">L\'ID non può essere vuoto</string>
     <string name="toast_id_saved">ID salvato correttamente</string>
     <string msgid="3765533235322692011" name="tooltip_description">"Descrizione comando"</string>
     <string msgid="3124740595719787496" name="tooltip_label">"Mostra descrizione comando"</string>
