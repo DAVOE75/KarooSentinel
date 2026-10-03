@@ -77,7 +77,11 @@ No necesitas quitarte los guantes ni tocar la pantalla del GPS para armar la ala
 
 Si esta extensión te ha salvado la bici o simplemente te gusta mi trabajo, ¡puedes invitarme a un café para apoyar futuras actualizaciones!
 
-<a href="https://www.buymeacoffee.com/davoe75" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+<p align="center">
+  <a href="https://www.buymeacoffee.com/davoe75" target="_blank">
+    <img src="https://img.shields.io/badge/☕_INVÍTAME_A_UN_CAFÉ-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Invítame a un café"/>
+  </a>
+</p>
 
 ---
 *Desarrollado para la comunidad ciclista.* 🚴‍♂️💨
