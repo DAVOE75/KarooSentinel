@@ -185,12 +185,12 @@
     <string msgid="542007171693138492" name="navigation_menu">"Menú de navegación"</string>
     <string msgid="6610465462668679431" name="not_selected">"No seleccionado"</string>
     <string name="password_toggle_content_description">Mostrar contraseña</string>
-    <string name="pin_desc">Exigir un PIN de 4 d�gitos para desactivar la alarma desde la pantalla.</string>
+    <string name="pin_desc">Exigir un PIN de 4 dígitos para desactivar la alarma desde la pantalla.</string>
     <string name="pin_dialog_cancel">Cancelar</string>
     <string name="pin_dialog_error">PIN Incorrecto</string>
     <string name="pin_dialog_ok">Aceptar</string>
     <string name="pin_dialog_title">Introduzca el PIN</string>
-    <string name="pin_hint">Ej: 1234 (Vac�o = Sin PIN)</string>
+    <string name="pin_hint">Ej: 1234 (Vacío = Sin PIN)</string>
     <string name="pin_label">PIN de Seguridad (Opcional)</string>
     <string msgid="5941395253238309765" name="range_end">"Fin del intervalo"</string>
     <string msgid="7097486360902471446" name="range_start">"Inicio del intervalo"</string>
@@ -198,11 +198,11 @@
     <string name="searchview_clear_text_content_description">Borrar texto</string>
     <string name="searchview_navigation_content_description">Atrás</string>
     <string msgid="6043586758067023" name="selected">"Seleccionado"</string>
-    <string name="sensitivity_desc">Ajusta cu�nto movimiento es necesario para disparar la alarma.</string>
+    <string name="sensitivity_desc">Ajusta cuánto movimiento es necesario para disparar la alarma.</string>
     <string name="sensitivity_label">Sensibilidad del Sensor</string>
     <string name="settings_title">⚙️ CONFIGURACIÓN</string>
     <string name="side_sheet_accessibility_pane_title">Hoja lateral</string>
-    <string name="silent_mode_desc">La alarma no sonar� ni brillar�, solo enviar� la alerta a Telegram para no alertar al ladr�n.</string>
+    <string name="silent_mode_desc">La alarma no sonará ni brillará, solo enviará la alerta a Telegram para no alertar al ladrón.</string>
     <string name="silent_mode_label">Modo Trampa (Silencioso)</string>
     <string msgid="4139871816613051306" name="state_empty">"Vacío"</string>
     <string msgid="5834637030682409883" name="state_off">"Desactivado"</string>

@@ -27,14 +27,14 @@
     <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"Compartilhar com"</string>
     <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"Compartilhar com <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
     <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"Recolher"</string>
-    <string name="alert_movement_detected">MOVIMENTO\nDETECTADO</string>
-    <string name="alert_subtitle">O alarme está tocando e seu Telegram foi notificado.</string>
+    <string name="alert_movement_detected">MOVIMIENTO\nDETECTADO</string>
+    <string name="alert_subtitle">La alarma está sonando y se ha notificado a tu Telegram.</string>
     <string name="app_name">Karoo Sentinel</string>
-    <string name="bonus_action_name">Alarme Antifurto</string>
-    <string name="btn_activate">ATIVAR ALARME</string>
-    <string name="btn_deactivate">DESATIVAR</string>
-    <string name="btn_deactivate_alarm">DESATIVAR ALARME</string>
-    <string name="btn_save">SALVAR</string>
+    <string name="bonus_action_name">Alarma Anti-Robo</string>
+    <string name="btn_activate">ACTIVAR ALARMA</string>
+    <string name="btn_deactivate">DESACTIVAR</string>
+    <string name="btn_deactivate_alarm">DESACTIVAR ALARMA</string>
+    <string name="btn_save">GUARDAR</string>
     <string msgid="881409763997275156" name="call_notification_answer_action">"Atender"</string>
     <string msgid="8793775615905189152" name="call_notification_answer_video_action">"Vídeo"</string>
     <string msgid="3229508546291798546" name="call_notification_decline_action">"Recusar"</string>
@@ -42,7 +42,7 @@
     <string msgid="6107532579223922871" name="call_notification_incoming_text">"Chamada recebida"</string>
     <string msgid="8623827134497363134" name="call_notification_ongoing_text">"Chamada em andamento"</string>
     <string msgid="59049573811482460" name="call_notification_screening_text">"Filtrando uma ligação recebida"</string>
-    <string name="chat_id_hint">Seu ID numérico</string>
+    <string name="chat_id_hint">Tu ID numérico</string>
     <string msgid="406453423630273620" name="close_drawer">"Fechar menu de navegação"</string>
     <string msgid="7573152094250666567" name="close_sheet">"Fechar planilha"</string>
     <string msgid="8038256446254964252" name="default_error_message">"Entrada inválida"</string>
@@ -109,42 +109,42 @@
     <string msgid="5460405025248574620" name="m3c_tooltip_pane_description">"Dica"</string>
     <string msgid="542007171693138492" name="navigation_menu">"Menu de navegação"</string>
     <string msgid="6610465462668679431" name="not_selected">"Não selecionado"</string>
-    <string name="pin_desc">Exigir un PIN de 4 d�gitos para desactivar la alarma desde la pantalla.</string>
+    <string name="pin_desc">Exigir un PIN de 4 dígitos para desactivar la alarma desde la pantalla.</string>
     <string name="pin_dialog_cancel">Cancelar</string>
     <string name="pin_dialog_error">PIN Incorrecto</string>
     <string name="pin_dialog_ok">Aceptar</string>
     <string name="pin_dialog_title">Introduzca el PIN</string>
-    <string name="pin_hint">Ej: 1234 (Vac�o = Sin PIN)</string>
+    <string name="pin_hint">Ej: 1234 (Vacío = Sin PIN)</string>
     <string name="pin_label">PIN de Seguridad (Opcional)</string>
     <string msgid="5941395253238309765" name="range_end">"Fim do intervalo"</string>
     <string msgid="7097486360902471446" name="range_start">"Início do intervalo"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"Pesquisar"</string>
     <string msgid="6043586758067023" name="selected">"Selecionado"</string>
-    <string name="sensitivity_desc">Ajusta cu�nto movimiento es necesario para disparar la alarma.</string>
+    <string name="sensitivity_desc">Ajusta cuánto movimiento es necesario para disparar la alarma.</string>
     <string name="sensitivity_label">Sensibilidad del Sensor</string>
-    <string name="settings_title">⚙️ CONFIGURAÇÃO</string>
-    <string name="silent_mode_desc">La alarma no sonar� ni brillar�, solo enviar� la alerta a Telegram para no alertar al ladr�n.</string>
+    <string name="settings_title">⚙️ CONFIGURACIÓN</string>
+    <string name="silent_mode_desc">La alarma no sonará ni brillará, solo enviará la alerta a Telegram para no alertar al ladrón.</string>
     <string name="silent_mode_label">Modo Trampa (Silencioso)</string>
     <string msgid="4139871816613051306" name="state_empty">"Vazio"</string>
     <string msgid="5834637030682409883" name="state_off">"Desativado"</string>
     <string msgid="1490883874751719580" name="state_on">"Ativado"</string>
-    <string name="status_active">VIGILÂNCIA ATIVA</string>
+    <string name="status_active">VIGILANCIA ACTIVA</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
-    <string name="status_desc_inactive">A bicicleta não está sendo monitorada.</string>
-    <string name="status_inactive">SISTEMA INATIVO</string>
-    <string name="subtitle">Sistema de Segurança Avançado</string>
+    <string name="status_desc_inactive">La bicicleta no está siendo vigilada.</string>
+    <string name="status_inactive">SISTEMA INACTIVO</string>
+    <string name="subtitle">Sistema de Seguridad Avanzado</string>
     <string msgid="2561197295334830845" name="switch_role">"Chave"</string>
     <string msgid="1672349317127674378" name="tab">"Guia"</string>
-    <string name="telegram_desc">Envie uma mensagem para @userinfobot no Telegram e cole seu ID numérico aqui.</string>
+    <string name="telegram_desc">Envía un mensaje a @userinfobot en Telegram y pega aquí tu ID numérico.</string>
     <string name="telegram_label">💬 Telegram Chat ID</string>
     <string msgid="5946805113151406391" name="template_percent">"<ns1:g id="PERCENTAGE">%1$d</ns1:g>%%"</string>
-    <string name="tg_alert">🚨 ALERTA! Sua bicicleta está sendo movida! 🚨</string>
-    <string name="tg_armed">🔒 Alarme Karoo ativado. Sua bicicleta está segura.</string>
-    <string name="tg_disarmed">🔓 Alarme Karoo desativado.</string>
-    <string name="toast_id_empty">O ID não pode estar vazio</string>
-    <string name="toast_id_saved">ID salvo com sucesso</string>
+    <string name="tg_alert">🚨 ¡ALERTA! ¡Están moviendo tu bicicleta! 🚨</string>
+    <string name="tg_armed">🔒 Alarma Karoo activada. Tu bici está vigilada.</string>
+    <string name="tg_disarmed">🔓 Alarma Karoo desactivada.</string>
+    <string name="toast_id_empty">El ID no puede estar vacío</string>
+    <string name="toast_id_saved">ID Guardado Correctamente</string>
     <string msgid="3765533235322692011" name="tooltip_description">"dica"</string>
     <string msgid="3124740595719787496" name="tooltip_label">"mostrar dica"</string>
-    <string name="volume_desc">Deslize tudo para a esquerda para ativar o modo silencioso.</string>
-    <string name="volume_label">🔊 Volume da Sirene</string>
+    <string name="volume_desc">Desliza a la izquierda del todo para activar el modo silencioso.</string>
+    <string name="volume_label">🔊 Volumen de Sirena</string>
 </resources>

@@ -31,19 +31,19 @@
     <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"Teilen mit"</string>
     <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"Mit <ns1:g id="APPLICATION_NAME">%s</ns1:g> teilen"</string>
     <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"Minimieren"</string>
-    <string name="alert_movement_detected">BEWEGUNG\nERKANNT</string>
-    <string name="alert_subtitle">Der Alarm ertönt und Ihr Telegram wurde benachrichtigt.</string>
+    <string name="alert_movement_detected">MOVEMENT\nDETECTED</string>
+    <string name="alert_subtitle">The alarm is sounding and your Telegram has been notified.</string>
     <string name="app_name">Karoo Sentinel</string>
-    <string name="bonus_action_name">Diebstahlalarm</string>
+    <string name="bonus_action_name">Anti-Theft Alarm</string>
     <string name="bottomsheet_action_collapse">Ansicht am unteren Rand minimieren</string>
     <string name="bottomsheet_action_expand">Ansicht am unteren Rand maximieren</string>
     <string name="bottomsheet_action_expand_halfway">Zur Hälfte maximieren</string>
     <string name="bottomsheet_drag_handle_clicked">Auf Ziehpunkt doppelt getippt</string>
     <string name="bottomsheet_drag_handle_content_description">Ziehpunkt</string>
-    <string name="btn_activate">ALARM AKTIVIEREN</string>
-    <string name="btn_deactivate">DEAKTIVIEREN</string>
-    <string name="btn_deactivate_alarm">ALARM DEAKTIVIEREN</string>
-    <string name="btn_save">SPEICHERN</string>
+    <string name="btn_activate">ACTIVATE ALARM</string>
+    <string name="btn_deactivate">DEACTIVATE</string>
+    <string name="btn_deactivate_alarm">DEACTIVATE ALARM</string>
+    <string name="btn_save">SAVE</string>
     <string msgid="881409763997275156" name="call_notification_answer_action">"Annehmen"</string>
     <string msgid="8793775615905189152" name="call_notification_answer_video_action">"Video"</string>
     <string msgid="3229508546291798546" name="call_notification_decline_action">"Ablehnen"</string>
@@ -53,7 +53,7 @@
     <string msgid="59049573811482460" name="call_notification_screening_text">"Filter für eingehenden Anruf"</string>
     <string name="character_counter_content_description">Eingegebene Zeichen: %1$d von %2$d</string>
     <string name="character_counter_overflowed_content_description">Zeichenbeschränkung überschritten: %1$d/%2$d</string>
-    <string name="chat_id_hint">Ihre numerische ID</string>
+    <string name="chat_id_hint">Your numeric ID</string>
     <string name="clear_text_end_icon_content_description">Text löschen</string>
     <string msgid="406453423630273620" name="close_drawer">"Navigationsmenü schließen"</string>
     <string msgid="7573152094250666567" name="close_sheet">"Tabelle schließen"</string>
@@ -200,30 +200,30 @@
     <string msgid="6043586758067023" name="selected">"Ausgewählt"</string>
     <string name="sensitivity_desc">Adjust how much movement is needed to trigger the alarm.</string>
     <string name="sensitivity_label">Sensor Sensitivity</string>
-    <string name="settings_title">⚙️ EINSTELLUNGEN</string>
+    <string name="settings_title">⚙️ CONFIGURATION</string>
     <string name="side_sheet_accessibility_pane_title">Seitenblatt</string>
     <string name="silent_mode_desc">The alarm will not sound or flash, it will only send the Telegram alert to not scare off the thief.</string>
     <string name="silent_mode_label">Silent Trap Mode</string>
     <string msgid="4139871816613051306" name="state_empty">"Leer"</string>
     <string msgid="5834637030682409883" name="state_off">"Aus"</string>
     <string msgid="1490883874751719580" name="state_on">"An"</string>
-    <string name="status_active">ÜBERWACHUNG AKTIV</string>
+    <string name="status_active">SURVEILLANCE ACTIVE</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
-    <string name="status_desc_inactive">Das Fahrrad wird nicht überwacht.</string>
-    <string name="status_inactive">SYSTEM INAKTIV</string>
-    <string name="subtitle">Erweitertes Sicherheitssystem</string>
+    <string name="status_desc_inactive">The bicycle is not being monitored.</string>
+    <string name="status_inactive">SYSTEM INACTIVE</string>
+    <string name="subtitle">Advanced Security System</string>
     <string msgid="2561197295334830845" name="switch_role">"Wechseln"</string>
     <string msgid="1672349317127674378" name="tab">"Tab"</string>
-    <string name="telegram_desc">Senden Sie eine Nachricht an @userinfobot auf Telegram und fügen Sie hier Ihre numerische ID ein.</string>
-    <string name="telegram_label">💬 Telegram Chat-ID</string>
+    <string name="telegram_desc">Send a message to @userinfobot on Telegram and paste your numeric ID here.</string>
+    <string name="telegram_label">💬 Telegram Chat ID</string>
     <string msgid="5946805113151406391" name="template_percent">"<ns1:g id="PERCENTAGE">%1$d</ns1:g> Prozent."</string>
-    <string name="tg_alert">🚨 ALARM! Ihr Fahrrad wird bewegt! 🚨</string>
-    <string name="tg_armed">🔒 Karoo-Alarm aktiviert. Ihr Fahrrad ist gesichert.</string>
-    <string name="tg_disarmed">🔓 Karoo-Alarm deaktiviert.</string>
-    <string name="toast_id_empty">Die ID darf nicht leer sein</string>
-    <string name="toast_id_saved">ID erfolgreich gespeichert</string>
+    <string name="tg_alert">🚨 ALERT! Your bicycle is being moved! 🚨</string>
+    <string name="tg_armed">🔒 Karoo alarm activated. Your bike is secured.</string>
+    <string name="tg_disarmed">🔓 Karoo alarm deactivated.</string>
+    <string name="toast_id_empty">The ID cannot be empty</string>
+    <string name="toast_id_saved">ID Saved Successfully</string>
     <string msgid="3765533235322692011" name="tooltip_description">"Kurzinfo"</string>
     <string msgid="3124740595719787496" name="tooltip_label">"Kurzinfo anzeigen"</string>
-    <string name="volume_desc">Wischen Sie ganz nach links, um den Stumm-Modus zu aktivieren.</string>
-    <string name="volume_label">🔊 Sirenenlautstärke</string>
+    <string name="volume_desc">Swipe all the way to the left to activate silent mode.</string>
+    <string name="volume_label">🔊 Siren Volume</string>
 </resources>
