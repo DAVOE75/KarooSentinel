@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.davoe.cyclamikaroo">
+    package="com.davoe.karoosentinel">
 
     <!-- Permisos para Bluetooth/BLE -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -13,14 +13,14 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Cyclami Karoo Extension"
+        android:label="Karoo Sentinel"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         <!-- Declaración del servicio de la extensión -->
         <service
-            android:name=".CyclamiExtension"
+            android:name=".SentinelExtension"
             android:exported="true">
             <intent-filter>
                 <action android:name="io.hammerhead.karoo.EXTENSION" />
@@ -28,7 +28,7 @@
             <!-- Opcional: Metadata para describir la extensión -->
             <meta-data
                 android:name="io.hammerhead.karoo.extension.name"
-                android:value="Cyclami Radar &amp; Light" />
+                android:value="Karoo Sentinel" />
         </service>
 
     </application>

@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.davoe.cyclamikaroo"
+    namespace = "com.davoe.karoosentinel"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.davoe.cyclamikaroo"
+        applicationId = "com.davoe.karoosentinel"
         minSdk = 26
         targetSdk = 34
         versionCode = 105

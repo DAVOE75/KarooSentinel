@@ -33,5 +33,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ALTGRAPH"
+rootProject.name = "KarooSentinel"
 include(":app")
