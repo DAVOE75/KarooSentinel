@@ -14,9 +14,18 @@
 
 ### ✨ Características Principales
 
+<p align="center">
+  <img src="assets/main_screen.png" alt="Pantalla Principal" width="250"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/settings_screen.png" alt="Ajustes" width="250"/>
+</p>
+
 * **Detección de Movimiento Acelerométrica:** Utiliza el acelerómetro interno del Karoo para detectar la más mínima vibración o movimiento de la bicicleta cuando la alarma está armada.
 * **Alerta Sonora Nativa (Hardware Beeper):** Envía patrones de pitidos de alta frecuencia directamente al "beeper" interno del dispositivo para disuadir posibles robos.
 * **Notificaciones Instantáneas por Telegram:** Avisa en tiempo real directamente a tu smartphone a través de un bot de Telegram cuando se detecta movimiento.
+  
+  <img src="assets/telegram_alerts.png" alt="Alertas de Telegram" width="300"/>
+
 * **Integración con SRAM AXS / Shimano Di2:** Permite armar y desarmar el sistema cómodamente desde los "Bonus Buttons" ocultos de tus manetas de cambio electrónico.
 * **Interfaz de Usuario Premium:** Pantallas en modo oscuro optimizadas para la visibilidad al sol y ahorro de batería, con animaciones 3D, respuestas inmediatas sin latencia, control de volumen e indicadores de estado claros.
 * **Modo "Destello de Sirena":** Al detectar intrusión, la pantalla del Karoo se enciende por encima de la pantalla de bloqueo y emite un destello pulsante de luz roja para llamar la atención.
@@ -69,9 +78,18 @@ No necesitas quitarte los guantes ni tocar la pantalla del GPS para armar la ala
 
 ### ✨ Key Features
 
+<p align="center">
+  <img src="assets/main_screen.png" alt="Main Screen" width="250"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/settings_screen.png" alt="Settings" width="250"/>
+</p>
+
 * **Accelerometer Motion Detection:** Uses the Karoo's internal accelerometer to detect the slightest vibration or movement of the bike when the alarm is armed.
 * **Native Sound Alert (Hardware Beeper):** Sends high-frequency beep patterns directly to the device's internal "beeper" to deter potential theft.
 * **Instant Telegram Notifications:** Alerts you in real-time directly to your smartphone via a Telegram bot when movement is detected.
+  
+  <img src="assets/telegram_alerts.png" alt="Telegram Alerts" width="300"/>
+
 * **SRAM AXS / Shimano Di2 Integration:** Allows you to arm and disarm the system conveniently from the hidden "Bonus Buttons" on your electronic shifters.
 * **Premium User Interface:** Dark mode screens optimized for sunlight visibility and battery saving, featuring 3D animations, zero-latency responses, volume control, and clear status indicators.
 * **"Siren Flash" Mode:** Upon detecting an intrusion, the Karoo screen wakes up over the lock screen and emits a pulsating red flash to draw attention.
