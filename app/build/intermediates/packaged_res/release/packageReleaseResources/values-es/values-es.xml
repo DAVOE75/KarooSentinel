@@ -9,7 +9,18 @@
     <string name="btn_deactivate_alarm">DESACTIVAR ALARMA</string>
     <string name="btn_save">GUARDAR</string>
     <string name="chat_id_hint">Tu ID numérico</string>
+    <string name="pin_desc">Exigir un PIN de 4 d�gitos para desactivar la alarma desde la pantalla.</string>
+    <string name="pin_dialog_cancel">Cancelar</string>
+    <string name="pin_dialog_error">PIN Incorrecto</string>
+    <string name="pin_dialog_ok">Aceptar</string>
+    <string name="pin_dialog_title">Introduzca el PIN</string>
+    <string name="pin_hint">Ej: 1234 (Vac�o = Sin PIN)</string>
+    <string name="pin_label">PIN de Seguridad (Opcional)</string>
+    <string name="sensitivity_desc">Ajusta cu�nto movimiento es necesario para disparar la alarma.</string>
+    <string name="sensitivity_label">Sensibilidad del Sensor</string>
     <string name="settings_title">⚙️ CONFIGURACIÓN</string>
+    <string name="silent_mode_desc">La alarma no sonar� ni brillar�, solo enviar� la alerta a Telegram para no alertar al ladr�n.</string>
+    <string name="silent_mode_label">Modo Trampa (Silencioso)</string>
     <string name="status_active">VIGILANCIA ACTIVA</string>
     <string name="status_desc_inactive">La bicicleta no está siendo vigilada.</string>
     <string name="status_inactive">SISTEMA INACTIVO</string>

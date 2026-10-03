@@ -36,6 +36,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
+        // Solicitar permisos de ubicación (necesario para el geofencing GPS)
+        if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION), 100)
+        }
+        
         sharedPrefs = getSharedPreferences("SentinelPrefs", Context.MODE_PRIVATE)
         val savedChatId = sharedPrefs.getString("CHAT_ID", "")
         

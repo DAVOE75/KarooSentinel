@@ -9,7 +9,18 @@
     <string name="btn_deactivate_alarm">DISATTIVA ALLARME</string>
     <string name="btn_save">SALVA</string>
     <string name="chat_id_hint">Il tuo ID numerico</string>
+    <string name="pin_desc">Require a 4-digit PIN to deactivate the alarm from the screen.</string>
+    <string name="pin_dialog_cancel">Cancel</string>
+    <string name="pin_dialog_error">Incorrect PIN</string>
+    <string name="pin_dialog_ok">OK</string>
+    <string name="pin_dialog_title">Enter PIN</string>
+    <string name="pin_hint">Ex: 1234 (Empty = No PIN)</string>
+    <string name="pin_label">Security PIN (Optional)</string>
+    <string name="sensitivity_desc">Adjust how much movement is needed to trigger the alarm.</string>
+    <string name="sensitivity_label">Sensor Sensitivity</string>
     <string name="settings_title">⚙️ CONFIGURAZIONE</string>
+    <string name="silent_mode_desc">The alarm will not sound or flash, it will only send the Telegram alert to not scare off the thief.</string>
+    <string name="silent_mode_label">Silent Trap Mode</string>
     <string name="status_active">SORVEGLIANZA ATTIVA</string>
     <string name="status_desc_inactive">La bicicletta non è sorvegliata.</string>
     <string name="status_inactive">SISTEMA INATTIVO</string>

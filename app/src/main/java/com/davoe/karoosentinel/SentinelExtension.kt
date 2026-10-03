@@ -5,8 +5,12 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.media.AudioManager
 import android.media.ToneGenerator
+import android.os.Bundle
 import android.util.Log
 import io.hammerhead.karooext.extension.KarooExtension
 import io.hammerhead.karooext.KarooSystemService
@@ -38,6 +42,44 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
     private var isFirstReading = true
     private var karooSystem: KarooSystemService? = null
     private var alarmJob: Job? = null
+    
+    private lateinit var locationManager: LocationManager
+    private var parkedLocation: Location? = null
+    private var isAlarmTriggered = false
+    private var lastLocationSentTime = 0L
+
+    private val locationListener = object : LocationListener {
+        override fun onLocationChanged(location: Location) {
+            if (!isArmed) return
+            
+            if (parkedLocation == null) {
+                parkedLocation = location
+                Log.d(TAG, "Parked location set: ${location.latitude}, ${location.longitude}")
+                return
+            }
+            
+            val distance = location.distanceTo(parkedLocation!!)
+            Log.d(TAG, "Distance from parked location: $distance meters")
+            
+            if (distance > 20f && !isAlarmTriggered) { // 20 metros de margen
+                Log.w(TAG, "Geofence breached! Distance: $distance")
+                triggerAlarm()
+            }
+            
+            if (isAlarmTriggered) {
+                val currentTime = System.currentTimeMillis()
+                // Enviar actualización GPS cada 30 segundos si está robada
+                if (currentTime - lastLocationSentTime > 30000) {
+                    lastLocationSentTime = currentTime
+                    val mapsUrl = "https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}"
+                    sendTelegramMessage("📍 ÚLTIMA UBICACIÓN GPS:\n$mapsUrl")
+                }
+            }
+        }
+        override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
+        override fun onProviderEnabled(provider: String) {}
+        override fun onProviderDisabled(provider: String) {}
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -45,6 +87,7 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
         
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         
         karooSystem = KarooSystemService(this)
         karooSystem?.connect()
@@ -84,8 +127,19 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
         
         if (isArmed) {
             isFirstReading = true
+            isAlarmTriggered = false
+            parkedLocation = null
+            
             accelerometer?.let {
                 sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_UI)
+            }
+            
+            try {
+                if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000L, 5f, locationListener)
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error requesting location updates", e)
             }
             
             val silentMode = sharedPrefs.getBoolean("SILENT_MODE", false)
@@ -106,6 +160,11 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
             sendTelegramMessage(getString(R.string.tg_armed))
         } else {
             sensorManager.unregisterListener(this)
+            try {
+                locationManager.removeUpdates(locationListener)
+            } catch (e: Exception) {}
+            isAlarmTriggered = false
+            parkedLocation = null
             stopSiren()
             
             val silentMode = sharedPrefs.getBoolean("SILENT_MODE", false)
@@ -162,6 +221,7 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
         }
         
         lastAlertTime = currentTime
+        isAlarmTriggered = true
         Log.w(TAG, "¡MOVIMIENTO DETECTADO!")
         
         val sharedPrefs = getSharedPreferences("SentinelPrefs", Context.MODE_PRIVATE)
@@ -240,6 +300,9 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
     override fun onDestroy() {
         super.onDestroy()
         sensorManager.unregisterListener(this)
+        try {
+            locationManager.removeUpdates(locationListener)
+        } catch (e: Exception) {}
         stopSiren()
         karooSystem?.disconnect()
         scope.cancel()
