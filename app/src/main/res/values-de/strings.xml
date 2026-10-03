@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Karoo Sentinel</string>
-    <string name="subtitle">Erweitertes Sicherheitssystem</string>
-    <string name="status_inactive">SYSTEM INAKTIV</string>
-    <string name="status_active">ÜBERWACHUNG AKTIV</string>
-    <string name="status_desc_inactive">Das Fahrrad wird nicht überwacht.</string>
-    <string name="btn_activate">ALARM AKTIVIEREN</string>
-    <string name="btn_deactivate">DEAKTIVIEREN</string>
-    <string name="settings_title">⚙️ EINSTELLUNGEN</string>
-    <string name="telegram_label">💬 Telegram Chat-ID</string>
-    <string name="telegram_desc">Senden Sie eine Nachricht an @userinfobot auf Telegram und fügen Sie hier Ihre numerische ID ein.</string>
-    <string name="chat_id_hint">Ihre numerische ID</string>
-    <string name="btn_save">SPEICHERN</string>
-    <string name="toast_id_saved">ID erfolgreich gespeichert</string>
-    <string name="toast_id_empty">Die ID darf nicht leer sein</string>
-    <string name="volume_label">🔊 Sirenenlautstärke</string>
-    <string name="volume_desc">Wischen Sie ganz nach links, um den Stumm-Modus zu aktivieren.</string>
-    <string name="alert_movement_detected">BEWEGUNG\nERKANNT</string>
-    <string name="alert_subtitle">Der Alarm ertönt und Ihr Telegram wurde benachrichtigt.</string>
-    <string name="btn_deactivate_alarm">ALARM DEAKTIVIEREN</string>
-    <string name="tg_armed">🔒 Karoo-Alarm aktiviert. Ihr Fahrrad ist gesichert.</string>
-    <string name="tg_disarmed">🔓 Karoo-Alarm deaktiviert.</string>
-    <string name="tg_alert">🚨 ALARM! Ihr Fahrrad wird bewegt! 🚨</string>
-    <string name="bonus_action_name">Diebstahlalarm</string>
+    <string name="subtitle">Advanced Security System</string>
+    <string name="status_inactive">SYSTEM INACTIVE</string>
+    <string name="status_active">SURVEILLANCE ACTIVE</string>
+    <string name="status_desc_inactive">The bicycle is not being monitored.</string>
+    <string name="btn_activate">ACTIVATE ALARM</string>
+    <string name="btn_deactivate">DEACTIVATE</string>
+    <string name="settings_title">⚙️ CONFIGURATION</string>
+    <string name="telegram_label">💬 Telegram Chat ID</string>
+    <string name="telegram_desc">Send a message to @userinfobot on Telegram and paste your numeric ID here.</string>
+    <string name="chat_id_hint">Your numeric ID</string>
+    <string name="btn_save">SAVE</string>
+    <string name="toast_id_saved">ID Saved Successfully</string>
+    <string name="toast_id_empty">The ID cannot be empty</string>
+    <string name="volume_label">🔊 Siren Volume</string>
+    <string name="volume_desc">Swipe all the way to the left to activate silent mode.</string>
+    <string name="alert_movement_detected">MOVEMENT\nDETECTED</string>
+    <string name="alert_subtitle">The alarm is sounding and your Telegram has been notified.</string>
+    <string name="btn_deactivate_alarm">DEACTIVATE ALARM</string>
+    <string name="tg_armed">🔒 Karoo alarm activated. Your bike is secured.</string>
+    <string name="tg_disarmed">🔓 Karoo alarm deactivated.</string>
+    <string name="tg_alert">🚨 ALERT! Your bicycle is being moved! 🚨</string>
+    <string name="bonus_action_name">Anti-Theft Alarm</string>
     <string name="sensitivity_label">Sensor Sensitivity</string>
     <string name="sensitivity_desc">Adjust how much movement is needed to trigger the alarm.</string>
     <string name="silent_mode_label">Silent Trap Mode</string>
@@ -35,4 +35,3 @@
     <string name="pin_dialog_ok">OK</string>
     <string name="pin_dialog_cancel">Cancel</string>
 </resources>
-
