@@ -2,7 +2,7 @@
 <Extension
     id="karoo_sentinel"
     displayName="Karoo Sentinel"
-    icon="@mipmap/ic_launcher"
+    icon="@drawable/ic_launcher"
     scansDevices="false"
     mapLayer="false"
     fitFile="false">

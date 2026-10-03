@@ -111,12 +111,36 @@ class MainActivity : ComponentActivity() {
 
                 val currentlyArmed = sharedPrefs.getBoolean("IS_ARMED", false)
                 val newArmedState = !currentlyArmed
-                sharedPrefs.edit().putBoolean("IS_ARMED", newArmedState).apply()
-                updateButtonState()
+                val pin = sharedPrefs.getString("SECURITY_PIN", "")
+                
+                if (!newArmedState && !pin.isNullOrEmpty()) {
+                    val input = EditText(this@MainActivity).apply {
+                        inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
+                    }
+                    android.app.AlertDialog.Builder(this@MainActivity)
+                        .setTitle(getString(R.string.pin_dialog_title))
+                        .setView(input)
+                        .setPositiveButton(getString(R.string.pin_dialog_ok)) { _, _ ->
+                            if (input.text.toString() == pin) {
+                                sharedPrefs.edit().putBoolean("IS_ARMED", false).apply()
+                                updateButtonState()
+                                val intent = Intent(this@MainActivity, SentinelExtension::class.java)
+                                intent.action = "com.davoe.karoosentinel.DISARM"
+                                startService(intent)
+                            } else {
+                                Toast.makeText(this@MainActivity, getString(R.string.pin_dialog_error), Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        .setNegativeButton(getString(R.string.pin_dialog_cancel), null)
+                        .show()
+                } else {
+                    sharedPrefs.edit().putBoolean("IS_ARMED", newArmedState).apply()
+                    updateButtonState()
 
-                val intent = Intent(this@MainActivity, SentinelExtension::class.java)
-                intent.action = if (newArmedState) "com.davoe.karoosentinel.ARM" else "com.davoe.karoosentinel.DISARM"
-                startService(intent)
+                    val intent = Intent(this@MainActivity, SentinelExtension::class.java)
+                    intent.action = if (newArmedState) "com.davoe.karoosentinel.ARM" else "com.davoe.karoosentinel.DISARM"
+                    startService(intent)
+                }
             }
         }
         
@@ -249,6 +273,158 @@ class MainActivity : ComponentActivity() {
         volumeCard.addView(volumeDesc)
         volumeCard.addView(volumeSlider)
         
+        // Sensitivity Card
+        val sensitivityCard = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(40, 40, 40, 40)
+            background = GradientDrawable().apply {
+                shape = GradientDrawable.RECTANGLE
+                cornerRadius = 32f
+                setColor(Color.parseColor("#18181B"))
+            }
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, 
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply { topMargin = 32 }
+        }
+        val sensitivityLabel = TextView(this).apply {
+            text = getString(R.string.sensitivity_label)
+            setTextColor(Color.parseColor("#E4E4E7"))
+            textSize = 15f
+            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+            setPadding(0, 0, 0, 16)
+        }
+        val sensitivityDesc = TextView(this).apply {
+            text = getString(R.string.sensitivity_desc)
+            setTextColor(Color.parseColor("#A1A1AA"))
+            textSize = 13f
+            setPadding(0, 0, 0, 32)
+        }
+        val sensitivitySlider = SeekBar(this).apply {
+            max = 100
+            progress = sharedPrefs.getInt("ALARM_SENSITIVITY", 50)
+            setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                    sharedPrefs.edit().putInt("ALARM_SENSITIVITY", progress).apply()
+                }
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+            })
+        }
+        sensitivityCard.addView(sensitivityLabel)
+        sensitivityCard.addView(sensitivityDesc)
+        sensitivityCard.addView(sensitivitySlider)
+        
+        // Silent Mode Card
+        val silentModeCard = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.CENTER_VERTICAL
+            setPadding(40, 40, 40, 40)
+            background = GradientDrawable().apply {
+                shape = GradientDrawable.RECTANGLE
+                cornerRadius = 32f
+                setColor(Color.parseColor("#18181B"))
+            }
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, 
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply { topMargin = 32 }
+        }
+        val silentTextLayout = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+        }
+        val silentLabel = TextView(this).apply {
+            text = getString(R.string.silent_mode_label)
+            setTextColor(Color.parseColor("#E4E4E7"))
+            textSize = 15f
+            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+            setPadding(0, 0, 0, 8)
+        }
+        val silentDesc = TextView(this).apply {
+            text = getString(R.string.silent_mode_desc)
+            setTextColor(Color.parseColor("#A1A1AA"))
+            textSize = 13f
+        }
+        silentTextLayout.addView(silentLabel)
+        silentTextLayout.addView(silentDesc)
+        
+        val silentSwitch = android.widget.Switch(this).apply {
+            isChecked = sharedPrefs.getBoolean("SILENT_MODE", false)
+            setOnCheckedChangeListener { _, isChecked ->
+                sharedPrefs.edit().putBoolean("SILENT_MODE", isChecked).apply()
+            }
+        }
+        silentModeCard.addView(silentTextLayout)
+        silentModeCard.addView(silentSwitch)
+
+        // PIN Card
+        val pinCard = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(40, 40, 40, 40)
+            background = GradientDrawable().apply {
+                shape = GradientDrawable.RECTANGLE
+                cornerRadius = 32f
+                setColor(Color.parseColor("#18181B"))
+            }
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, 
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply { topMargin = 32 }
+        }
+        val pinLabel = TextView(this).apply {
+            text = getString(R.string.pin_label)
+            setTextColor(Color.parseColor("#E4E4E7"))
+            textSize = 15f
+            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+            setPadding(0, 0, 0, 16)
+        }
+        val pinDesc = TextView(this).apply {
+            text = getString(R.string.pin_desc)
+            setTextColor(Color.parseColor("#A1A1AA"))
+            textSize = 13f
+            setPadding(0, 0, 0, 24)
+        }
+        
+        val pinInput = EditText(this).apply {
+            hint = getString(R.string.pin_hint)
+            setHintTextColor(Color.parseColor("#52525B"))
+            setTextColor(Color.WHITE)
+            textSize = 15f
+            inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
+            setText(sharedPrefs.getString("SECURITY_PIN", ""))
+            background = GradientDrawable().apply {
+                shape = GradientDrawable.RECTANGLE
+                cornerRadius = 20f
+                setColor(Color.parseColor("#27272A"))
+            }
+            setPadding(32, 32, 32, 32)
+        }
+        val pinSaveButton = Button(this).apply {
+            text = getString(R.string.btn_save)
+            setTextColor(Color.BLACK)
+            textSize = 14f
+            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+            background = GradientDrawable().apply {
+                shape = GradientDrawable.RECTANGLE
+                cornerRadius = 20f
+                setColor(Color.parseColor("#F4F4F5"))
+            }
+            setOnClickListener {
+                val newPin = pinInput.text.toString().trim()
+                sharedPrefs.edit().putString("SECURITY_PIN", newPin).apply()
+                Toast.makeText(this@MainActivity, getString(R.string.toast_id_saved), Toast.LENGTH_SHORT).show()
+            }
+        }
+        val pinInputLayout = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            addView(pinInput, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { bottomMargin = 24 })
+            addView(pinSaveButton, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
+        }
+        pinCard.addView(pinLabel)
+        pinCard.addView(pinDesc)
+        pinCard.addView(pinInputLayout)
+        
         // --- ADD VIEWS ---
         layout.addView(titleView)
         layout.addView(subtitleView)
@@ -261,6 +437,9 @@ class MainActivity : ComponentActivity() {
             addView(settingsTitle)
             addView(telegramCard)
             addView(volumeCard)
+            addView(sensitivityCard)
+            addView(silentModeCard)
+            addView(pinCard)
         }
         layout.addView(settingsContainer)
         

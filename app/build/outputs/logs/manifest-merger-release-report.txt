@@ -141,9 +141,9 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\davoe\.gradle\cach
 	android:label
 		ADDED from C:\KarooSentinel\app\src\main\AndroidManifest.xml:17:9-39
 	android:roundIcon
-		ADDED from C:\KarooSentinel\app\src\main\AndroidManifest.xml:18:9-54
+		ADDED from C:\KarooSentinel\app\src\main\AndroidManifest.xml:18:9-56
 	android:icon
-		ADDED from C:\KarooSentinel\app\src\main\AndroidManifest.xml:16:9-43
+		ADDED from C:\KarooSentinel\app\src\main\AndroidManifest.xml:16:9-45
 	android:allowBackup
 		ADDED from C:\KarooSentinel\app\src\main\AndroidManifest.xml:15:9-35
 	android:theme

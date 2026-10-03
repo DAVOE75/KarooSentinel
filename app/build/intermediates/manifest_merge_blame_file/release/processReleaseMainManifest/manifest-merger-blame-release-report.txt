@@ -49,12 +49,12 @@
 28        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 28-->[androidx.core:core:1.13.1] C:\Users\davoe\.gradle\caches\9.5.0\transforms\fda7b596edb0d1aaa81122ce1a1ab19b\transformed\core-1.13.1\AndroidManifest.xml:28:18-86
 29        android:extractNativeLibs="false"
-30        android:icon="@mipmap/ic_launcher"
-30-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:16:9-43
+30        android:icon="@drawable/ic_launcher"
+30-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:16:9-45
 31        android:label="Karoo Sentinel"
 31-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:17:9-39
-32        android:roundIcon="@mipmap/ic_launcher_round"
-32-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:18:9-54
+32        android:roundIcon="@drawable/ic_launcher_round"
+32-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:18:9-56
 33        android:supportsRtl="true"
 33-->C:\KarooSentinel\app\src\main\AndroidManifest.xml:19:9-35
 34        android:theme="@style/Theme.AppCompat.Light.NoActionBar" >

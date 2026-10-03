@@ -88,8 +88,10 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
                 sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_UI)
             }
             
+            val silentMode = sharedPrefs.getBoolean("SILENT_MODE", false)
+            
             // Beep de confirmación (activado)
-            if (volume > 0) {
+            if (volume > 0 && !silentMode) {
                 scope.launch {
                     delay(250) // Asegurar que el sistema Karoo está conectado
                     val tones = listOf(
@@ -106,8 +108,9 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
             sensorManager.unregisterListener(this)
             stopSiren()
             
+            val silentMode = sharedPrefs.getBoolean("SILENT_MODE", false)
             // Beep de confirmación (desactivado)
-            if (volume > 0) {
+            if (volume > 0 && !silentMode) {
                 scope.launch {
                     delay(250)
                     val tones = listOf(PlayBeepPattern.Tone(2500, 250))
@@ -136,7 +139,12 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
         val deltaY = abs(lastY - y)
         val deltaZ = abs(lastZ - z)
         
-        if (deltaX > MOVEMENT_THRESHOLD || deltaY > MOVEMENT_THRESHOLD || deltaZ > MOVEMENT_THRESHOLD) {
+        val sharedPrefs = getSharedPreferences("SentinelPrefs", Context.MODE_PRIVATE)
+        val sensitivitySetting = sharedPrefs.getInt("ALARM_SENSITIVITY", 50)
+        // 0 -> 4.0f, 100 -> 0.2f
+        val movementThreshold = 4.0f - (sensitivitySetting / 100f) * 3.8f
+        
+        if (deltaX > movementThreshold || deltaY > movementThreshold || deltaZ > movementThreshold) {
             triggerAlarm()
         }
         
@@ -155,20 +163,23 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
         
         lastAlertTime = currentTime
         Log.w(TAG, "¡MOVIMIENTO DETECTADO!")
-        // No desarmamos para que siga sonando y vigilando hasta que el usuario lo pare manualmente
         
-        // Lanzar la pantalla de alarma
-        val intent = android.content.Intent(this, SirenActivity::class.java).apply {
-            flags = android.content.Intent.FLAG_ACTIVITY_NEW_TASK or 
-                    android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP or 
-                    android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
-        }
-        startActivity(intent)
+        val sharedPrefs = getSharedPreferences("SentinelPrefs", Context.MODE_PRIVATE)
+        val silentMode = sharedPrefs.getBoolean("SILENT_MODE", false)
         
-        // Enviar mensaje de alerta
+        // Enviar mensaje de alerta a Telegram siempre
         sendTelegramMessage(getString(R.string.tg_alert))
         
-        playSiren()
+        if (!silentMode) {
+            // Lanzar la pantalla de alarma
+            val intent = android.content.Intent(this, SirenActivity::class.java).apply {
+                flags = android.content.Intent.FLAG_ACTIVITY_NEW_TASK or 
+                        android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP or 
+                        android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
+            }
+            startActivity(intent)
+            playSiren()
+        }
     }
     
     private fun playSiren() {

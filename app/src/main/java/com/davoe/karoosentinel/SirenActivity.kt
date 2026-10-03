@@ -92,10 +92,34 @@ class SirenActivity : ComponentActivity() {
             
             setOnClickListener {
                 it.animate().scaleX(0.95f).scaleY(0.95f).setDuration(50).withEndAction {
-                    val intent = Intent(this@SirenActivity, SentinelExtension::class.java)
-                    intent.action = "com.davoe.karoosentinel.DISARM"
-                    startService(intent)
-                    finish()
+                    val sharedPrefs = getSharedPreferences("SentinelPrefs", Context.MODE_PRIVATE)
+                    val pin = sharedPrefs.getString("SECURITY_PIN", "")
+                    
+                    if (!pin.isNullOrEmpty()) {
+                        val input = android.widget.EditText(this@SirenActivity).apply {
+                            inputType = android.text.InputType.TYPE_CLASS_NUMBER or android.text.InputType.TYPE_NUMBER_VARIATION_PASSWORD
+                        }
+                        android.app.AlertDialog.Builder(this@SirenActivity)
+                            .setTitle(getString(R.string.pin_dialog_title))
+                            .setView(input)
+                            .setPositiveButton(getString(R.string.pin_dialog_ok)) { _, _ ->
+                                if (input.text.toString() == pin) {
+                                    val intent = Intent(this@SirenActivity, SentinelExtension::class.java)
+                                    intent.action = "com.davoe.karoosentinel.DISARM"
+                                    startService(intent)
+                                    finish()
+                                } else {
+                                    android.widget.Toast.makeText(this@SirenActivity, getString(R.string.pin_dialog_error), android.widget.Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                            .setNegativeButton(getString(R.string.pin_dialog_cancel), null)
+                            .show()
+                    } else {
+                        val intent = Intent(this@SirenActivity, SentinelExtension::class.java)
+                        intent.action = "com.davoe.karoosentinel.DISARM"
+                        startService(intent)
+                        finish()
+                    }
                 }.start()
             }
         }

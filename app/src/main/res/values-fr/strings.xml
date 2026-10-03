@@ -23,4 +23,16 @@
     <string name="tg_disarmed">🔓 Alarme Karoo désactivée.</string>
     <string name="tg_alert">🚨 ALERTE ! Votre vélo est en train d\'être déplacé ! 🚨</string>
     <string name="bonus_action_name">Alarme Antivol</string>
+    <string name="sensitivity_label">Sensor Sensitivity</string>
+    <string name="sensitivity_desc">Adjust how much movement is needed to trigger the alarm.</string>
+    <string name="silent_mode_label">Silent Trap Mode</string>
+    <string name="silent_mode_desc">The alarm will not sound or flash, it will only send the Telegram alert to not scare off the thief.</string>
+    <string name="pin_label">Security PIN (Optional)</string>
+    <string name="pin_desc">Require a 4-digit PIN to deactivate the alarm from the screen.</string>
+    <string name="pin_hint">Ex: 1234 (Empty = No PIN)</string>
+    <string name="pin_dialog_title">Enter PIN</string>
+    <string name="pin_dialog_error">Incorrect PIN</string>
+    <string name="pin_dialog_ok">OK</string>
+    <string name="pin_dialog_cancel">Cancel</string>
 </resources>
+
