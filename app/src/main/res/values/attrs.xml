@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="id" format="string" />
+    <attr name="displayName" format="string|reference" />
+    <attr name="icon" format="reference" />
+    <attr name="scansDevices" format="boolean" />
+    <attr name="mapLayer" format="boolean" />
+    <attr name="fitFile" format="boolean" />
+    <attr name="actionId" format="string" />
+    <attr name="typeId" format="string" />
+    <attr name="description" format="string|reference" />
+    <attr name="graphical" format="boolean" />
+</resources>

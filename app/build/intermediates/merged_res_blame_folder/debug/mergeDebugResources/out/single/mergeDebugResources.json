@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "C:\\Users\\davoe\\.gradle\\daemon\\9.5.0\\com.davoe.karoosentinel.app-debug-4:\\drawable_ic_launcher.xml.flat",
+        "source": "C:\\Users\\davoe\\.gradle\\daemon\\9.5.0\\com.davoe.karoosentinel.app-main-6:\\drawable\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\davoe\\.gradle\\daemon\\9.5.0\\com.davoe.karoosentinel.app-debug-4:\\drawable_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\davoe\\.gradle\\daemon\\9.5.0\\com.davoe.karoosentinel.app-main-6:\\drawable\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\davoe\\.gradle\\daemon\\9.5.0\\com.davoe.karoosentinel.app-debug-4:\\mipmap_ic_launcher.xml.flat",
+        "source": "C:\\Users\\davoe\\.gradle\\daemon\\9.5.0\\com.davoe.karoosentinel.app-main-6:\\mipmap\\ic_launcher.xml"
+    },
+    {
+        "merged": "com.davoe.karoosentinel.app-debug-4:/xml_karoo_extension.xml.flat",
+        "source": "com.davoe.karoosentinel.app-main-6:/xml/karoo_extension.xml"
+    },
+    {
+        "merged": "C:\\Users\\davoe\\.gradle\\daemon\\9.5.0\\com.davoe.karoosentinel.app-debug-4:\\mipmap_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\davoe\\.gradle\\daemon\\9.5.0\\com.davoe.karoosentinel.app-main-6:\\mipmap\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\davoe\\.gradle\\daemon\\9.5.0\\com.davoe.karoosentinel.app-debug-4:\\xml_karoo_extension.xml.flat",
+        "source": "C:\\Users\\davoe\\.gradle\\daemon\\9.5.0\\com.davoe.karoosentinel.app-main-6:\\xml\\karoo_extension.xml"
+    }
+]

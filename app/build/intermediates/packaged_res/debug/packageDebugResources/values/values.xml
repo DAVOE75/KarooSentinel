@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr format="string" name="actionId"/>
+    <attr format="string|reference" name="description"/>
+    <attr format="string|reference" name="displayName"/>
+    <attr format="boolean" name="fitFile"/>
+    <attr format="boolean" name="graphical"/>
+    <attr format="reference" name="icon"/>
+    <attr format="string" name="id"/>
+    <attr format="boolean" name="mapLayer"/>
+    <attr format="boolean" name="scansDevices"/>
+    <attr format="string" name="typeId"/>
+    <string name="alert_movement_detected">MOVEMENT\nDETECTED</string>
+    <string name="alert_subtitle">The alarm is sounding and your Telegram has been notified.</string>
+    <string name="app_name">Karoo Sentinel</string>
+    <string name="bonus_action_name">Anti-Theft Alarm</string>
+    <string name="btn_activate">ACTIVATE ALARM</string>
+    <string name="btn_deactivate">DEACTIVATE</string>
+    <string name="btn_deactivate_alarm">DEACTIVATE ALARM</string>
+    <string name="btn_save">SAVE</string>
+    <string name="chat_id_hint">Your numeric ID</string>
+    <string name="settings_title">⚙️ CONFIGURATION</string>
+    <string name="status_active">SURVEILLANCE ACTIVE</string>
+    <string name="status_desc_inactive">The bicycle is not being monitored.</string>
+    <string name="status_inactive">SYSTEM INACTIVE</string>
+    <string name="subtitle">Advanced Security System</string>
+    <string name="telegram_desc">Send a message to @userinfobot on Telegram and paste your numeric ID here.</string>
+    <string name="telegram_label">💬 Telegram Chat ID</string>
+    <string name="tg_alert">🚨 ALERT! Your bicycle is being moved! 🚨</string>
+    <string name="tg_armed">🔒 Karoo alarm activated. Your bike is secured.</string>
+    <string name="tg_disarmed">🔓 Karoo alarm deactivated.</string>
+    <string name="toast_id_empty">The ID cannot be empty</string>
+    <string name="toast_id_saved">ID Saved Successfully</string>
+    <string name="volume_desc">Swipe all the way to the left to activate silent mode.</string>
+    <string name="volume_label">🔊 Siren Volume</string>
+</resources>

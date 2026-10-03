@@ -13,23 +13,39 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="Karoo Sentinel"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        <!-- Actividad principal requerida para salir del estado "stopped" -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".SirenActivity"
+            android:exported="false"
+            android:showOnLockScreen="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <!-- Declaración del servicio de la extensión -->
         <service
             android:name=".SentinelExtension"
             android:exported="true">
             <intent-filter>
-                <action android:name="io.hammerhead.karoo.EXTENSION" />
+                <action android:name="io.hammerhead.karooext.KAROO_EXTENSION" />
             </intent-filter>
-            <!-- Opcional: Metadata para describir la extensión -->
             <meta-data
-                android:name="io.hammerhead.karoo.extension.name"
-                android:value="Karoo Sentinel" />
+                android:name="io.hammerhead.karooext.EXTENSION_INFO"
+                android:resource="@xml/karoo_extension" />
         </service>
 
     </application>
