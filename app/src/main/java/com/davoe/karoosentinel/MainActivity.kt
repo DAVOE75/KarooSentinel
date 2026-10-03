@@ -198,7 +198,7 @@ class MainActivity : ComponentActivity() {
             setHintTextColor(Color.parseColor("#52525B"))
             setTextColor(Color.WHITE)
             textSize = 15f
-            inputType = InputType.TYPE_CLASS_NUMBER
+            inputType = InputType.TYPE_CLASS_TEXT
             setText(savedChatId)
             background = GradientDrawable().apply {
                 shape = GradientDrawable.RECTANGLE

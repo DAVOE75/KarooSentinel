@@ -9,7 +9,7 @@
     <string name="btn_deactivate">DESACTIVAR</string>
     <string name="settings_title">⚙️ CONFIGURACIÓN</string>
     <string name="telegram_label">💬 Telegram Chat ID</string>
-    <string name="telegram_desc">Envía un mensaje a @userinfobot en Telegram y pega aquí tu ID numérico.</string>
+    <string name="telegram_desc">Envía un mensaje a @userinfobot y pega tu ID numérico aquí (separa varios con comas).</string>
     <string name="chat_id_hint">Tu ID numérico</string>
     <string name="btn_save">GUARDAR</string>
     <string name="toast_id_saved">ID Guardado Correctamente</string>

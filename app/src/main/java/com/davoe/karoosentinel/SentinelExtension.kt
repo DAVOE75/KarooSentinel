@@ -392,23 +392,27 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
 
     private fun sendTelegramMessage(message: String) {
         val sharedPrefs = getSharedPreferences("SentinelPrefs", Context.MODE_PRIVATE)
-        val chatId = sharedPrefs.getString("CHAT_ID", CHAT_ID) // Fallback al default si no hay nada guardado
+        val chatIdString = sharedPrefs.getString("CHAT_ID", CHAT_ID)
         
-        if (chatId.isNullOrEmpty()) {
+        if (chatIdString.isNullOrEmpty()) {
             Log.e(TAG, "No Chat ID configured, cannot send Telegram message")
             return
         }
 
+        val chatIds = chatIdString.split(",").map { it.trim() }.filter { it.isNotEmpty() }
+
         scope.launch {
-            try {
-                val urlString = "https://api.telegram.org/bot$BOT_TOKEN/sendMessage?chat_id=$chatId&text=${java.net.URLEncoder.encode(message, "UTF-8")}"
-                val url = URL(urlString)
-                val connection = url.openConnection() as HttpURLConnection
-                connection.requestMethod = "GET"
-                val responseCode = connection.responseCode
-                Log.d(TAG, "Telegram sent: $responseCode")
-            } catch (e: Exception) {
-                Log.e(TAG, "Error enviando a Telegram", e)
+            for (chatId in chatIds) {
+                try {
+                    val urlString = "https://api.telegram.org/bot$BOT_TOKEN/sendMessage?chat_id=$chatId&text=${java.net.URLEncoder.encode(message, "UTF-8")}"
+                    val url = URL(urlString)
+                    val connection = url.openConnection() as HttpURLConnection
+                    connection.requestMethod = "GET"
+                    val responseCode = connection.responseCode
+                    Log.d(TAG, "Telegram sent to $chatId: $responseCode")
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error enviando a Telegram $chatId", e)
+                }
             }
         }
     }
