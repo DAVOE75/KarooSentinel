@@ -1,7 +1,7 @@
 {
   "label": "Karoo Sentinel",
   "packageName": "com.davoe.karoosentinel",
-  "latestApkUrl": "https://github.com/DAVOE75/KarooSentinel/releases/download/v0.0.9/KarooSentinel.apk",
+  "latestApkUrl": "https://github.com/DAVOE75/KarooSentinel/releases/latest/download/KarooSentinel.apk",
   "latestVersion": "0.0.9",
   "latestVersionCode": 108,
   "iconUrl": "https://raw.githubusercontent.com/DAVOE75/KarooSentinel/main/art/icon.png",
