@@ -44,6 +44,9 @@ jobs:
           fi
           cp app/build/outputs/apk/release/app-release.apk release_assets/KarooSentinel-${TAG_NAME}.apk
           cp app/build/outputs/apk/release/app-release.apk release_assets/KarooSentinel.apk
+          cp manifest.json release_assets/manifest.json
+          cp karoo-app-manifest.json release_assets/karoo-app-manifest.json
+          cp art/icon.png release_assets/icon.png
 
       - name: Create GitHub Release and Upload APK
         uses: softprops/action-gh-release@v2
