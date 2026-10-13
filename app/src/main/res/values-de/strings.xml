@@ -34,4 +34,10 @@
     <string name="pin_dialog_error">Falsche PIN</string>
     <string name="pin_dialog_ok">OK</string>
     <string name="pin_dialog_cancel">Abbrechen</string>
+    <string name="delay_label">⏱️ Scharfschalt-Verzögerung</string>
+    <string name="delay_desc">Zeit zum Abstellen oder Anlehnen des Fahrrads, bevor die Bewegungserkennung aktiviert wird.</string>
+    <string name="delay_instant">Sofort (0s)</string>
+    <string name="status_arming">WIRD IN %1$d SEKUNDEN SCHARF...</string>
+    <string name="status_desc_arming">Sicherheitszeit aktiv. Du kannst dein Fahrrad jetzt abstellen.</string>
+    <string name="btn_cancel_arming">SCHARFSCHALTEN ABBRECHEN</string>
 </resources>

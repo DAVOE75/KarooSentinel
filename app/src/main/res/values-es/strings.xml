@@ -34,4 +34,10 @@
     <string name="pin_dialog_error">PIN Incorrecto</string>
     <string name="pin_dialog_ok">Aceptar</string>
     <string name="pin_dialog_cancel">Cancelar</string>
+    <string name="delay_label">⏱️ Retardo de Armado</string>
+    <string name="delay_desc">Tiempo para apoyar o dejar la bici antes de activar la vigilancia inercial.</string>
+    <string name="delay_instant">Inmediato (0s)</string>
+    <string name="status_arming">ARMANDO EN %1$d SEGUNDOS...</string>
+    <string name="status_desc_arming">Margen de seguridad activo. Puedes apoyar o colocar la bicicleta.</string>
+    <string name="btn_cancel_arming">CANCELAR ARMADO</string>
 </resources>

@@ -34,4 +34,10 @@
     <string name="pin_dialog_error">PIN Incorreto</string>
     <string name="pin_dialog_ok">OK</string>
     <string name="pin_dialog_cancel">Cancelar</string>
+    <string name="delay_label">⏱️ Atraso de Ativação</string>
+    <string name="delay_desc">Tempo para apoiar ou encostar a bicicleta antes de ativar a vigilância de movimento.</string>
+    <string name="delay_instant">Imediato (0s)</string>
+    <string name="status_arming">A ARMAR EM %1$d SEGUNDOS...</string>
+    <string name="status_desc_arming">Margem de segurança ativa. Pode apoiar ou colocar a bicicleta.</string>
+    <string name="btn_cancel_arming">CANCELAR ATIVAÇÃO</string>
 </resources>

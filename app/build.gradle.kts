@@ -1,4 +1,4 @@
-﻿plugins {
+plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
@@ -11,8 +11,8 @@ android {
         applicationId = "com.davoe.karoosentinel"
         minSdk = 26
         targetSdk = 34
-        versionCode = 107
-        versionName = "0.0.8"
+        versionCode = 108
+        versionName = "0.0.9"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

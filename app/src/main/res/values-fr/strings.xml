@@ -34,4 +34,10 @@
     <string name="pin_dialog_error">PIN Incorrect</string>
     <string name="pin_dialog_ok">OK</string>
     <string name="pin_dialog_cancel">Annuler</string>
+    <string name="delay_label">⏱️ Délai d\'armement</string>
+    <string name="delay_desc">Délai pour poser ou ranger votre vélo avant l\'activation de la surveillance de mouvement.</string>
+    <string name="delay_instant">Immédiat (0s)</string>
+    <string name="status_arming">ARMEMENT DANS %1$d SECONDES...</string>
+    <string name="status_desc_arming">Période de grâce active. Vous pouvez poser votre vélo.</string>
+    <string name="btn_cancel_arming">ANNULER L\'ARMEMENT</string>
 </resources>

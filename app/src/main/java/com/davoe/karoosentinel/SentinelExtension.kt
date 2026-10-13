@@ -82,6 +82,8 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     
     private var isArmed = false
+    private var isArming = false
+    private var armingJob: Job? = null
     private var lastX = 0f
     private var lastY = 0f
     private var lastZ = 0f
@@ -176,74 +178,124 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
 
     private fun toggleAlarm() {
         val sharedPrefs = getSharedPreferences("SentinelPrefs", Context.MODE_PRIVATE)
-        val isArmed = sharedPrefs.getBoolean("IS_ARMED", false)
+        val isArmedState = sharedPrefs.getBoolean("IS_ARMED", false)
+        val isArmingState = sharedPrefs.getBoolean("IS_ARMING", false)
         val pin = sharedPrefs.getString("SECURITY_PIN", "")
         
-        if (isArmed && !pin.isNullOrEmpty()) {
+        if (isArmingState) {
+            setAlarmState(false)
+            return
+        }
+        
+        if (isArmedState && !pin.isNullOrEmpty()) {
             val intent = android.content.Intent(this, MainActivity::class.java).apply {
                 flags = android.content.Intent.FLAG_ACTIVITY_NEW_TASK or android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
             }
             startActivity(intent)
         } else {
-            setAlarmState(!isArmed)
+            setAlarmState(!isArmedState)
         }
     }
 
     private fun setAlarmState(armed: Boolean) {
-        if (isArmed == armed) return // Avoid redundant calls
-        
-        isArmed = armed
-        
         val sharedPrefs = getSharedPreferences("SentinelPrefs", Context.MODE_PRIVATE)
-        sharedPrefs.edit().putBoolean("IS_ARMED", isArmed).apply()
-        val volume = sharedPrefs.getInt("ALARM_VOLUME", 100)
         
-        val intent = android.content.Intent("com.davoe.karoosentinel.STATE_CHANGED")
-        intent.setPackage(packageName)
-        sendBroadcast(intent)
-        
-        updateAllWidgets()
-        
-        if (isArmed) {
-            isFirstReading = true
-            isAlarmTriggered = false
-            parkedLocation = null
+        if (armed) {
+            if (isArmed || isArming) return
             
-            accelerometer?.let {
-                sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_UI)
-            }
-            
-            try {
-                if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000L, 5f, locationListener)
+            val delaySeconds = sharedPrefs.getInt("ARMING_DELAY_SECONDS", 10)
+            if (delaySeconds > 0) {
+                isArming = true
+                isArmed = false
+                sharedPrefs.edit()
+                    .putBoolean("IS_ARMING", true)
+                    .putBoolean("IS_ARMED", false)
+                    .putInt("ARMING_REMAINING", delaySeconds)
+                    .apply()
+                
+                val intent = android.content.Intent("com.davoe.karoosentinel.STATE_CHANGED").apply {
+                    setPackage(packageName)
+                    putExtra("IS_ARMING", true)
+                    putExtra("REMAINING_SECONDS", delaySeconds)
                 }
-            } catch (e: Exception) {
-                Log.e(TAG, "Error requesting location updates", e)
-            }
-            
-            val silentMode = sharedPrefs.getBoolean("SILENT_MODE", false)
-            
-            val filter = android.content.IntentFilter().apply {
-                addAction(android.content.Intent.ACTION_SHUTDOWN)
-                addAction(android.bluetooth.BluetoothDevice.ACTION_ACL_DISCONNECTED)
-            }
-            registerReceiver(securityReceiver, filter)
-            
-            // Beep de confirmación (activado)
-            if (volume > 0 && !silentMode) {
-                scope.launch {
-                    delay(250) // Asegurar que el sistema Karoo está conectado
-                    val tones = listOf(
-                        PlayBeepPattern.Tone(3500, 150),
-                        PlayBeepPattern.Tone(null, 50),
-                        PlayBeepPattern.Tone(3500, 150)
-                    )
-                    karooSystem?.dispatch(PlayBeepPattern(tones))
+                sendBroadcast(intent)
+                updateAllWidgets()
+                
+                armingJob?.cancel()
+                armingJob = scope.launch {
+                    val volume = sharedPrefs.getInt("ALARM_VOLUME", 100)
+                    val silentMode = sharedPrefs.getBoolean("SILENT_MODE", false)
+                    
+                    for (sec in delaySeconds downTo 1) {
+                        if (!isActive) break
+                        sharedPrefs.edit().putInt("ARMING_REMAINING", sec).apply()
+                        val tickIntent = android.content.Intent("com.davoe.karoosentinel.STATE_CHANGED").apply {
+                            setPackage(packageName)
+                            putExtra("IS_ARMING", true)
+                            putExtra("REMAINING_SECONDS", sec)
+                        }
+                        sendBroadcast(tickIntent)
+                        
+                        if (volume > 0 && !silentMode) {
+                            try {
+                                val tones = listOf(PlayBeepPattern.Tone(2800, 70))
+                                karooSystem?.dispatch(PlayBeepPattern(tones))
+                            } catch (e: Exception) {
+                                Log.e(TAG, "Error playing arming beep", e)
+                            }
+                        }
+                        delay(1000)
+                    }
+                    
+                    if (isActive) {
+                        completeArming()
+                    }
                 }
+                return
+            } else {
+                completeArming()
+                return
             }
-            
-            sendTelegramMessage(getString(R.string.tg_armed))
         } else {
+            // Disarming or canceling arming
+            if (isArming) {
+                armingJob?.cancel()
+                armingJob = null
+                isArming = false
+                isArmed = false
+                sharedPrefs.edit()
+                    .putBoolean("IS_ARMING", false)
+                    .putBoolean("IS_ARMED", false)
+                    .apply()
+                
+                val volume = sharedPrefs.getInt("ALARM_VOLUME", 100)
+                val silentMode = sharedPrefs.getBoolean("SILENT_MODE", false)
+                if (volume > 0 && !silentMode) {
+                    scope.launch {
+                        val tones = listOf(PlayBeepPattern.Tone(1800, 150))
+                        karooSystem?.dispatch(PlayBeepPattern(tones))
+                    }
+                }
+                
+                val intent = android.content.Intent("com.davoe.karoosentinel.STATE_CHANGED").apply {
+                    setPackage(packageName)
+                    putExtra("IS_ARMING", false)
+                    putExtra("IS_ARMED", false)
+                }
+                sendBroadcast(intent)
+                updateAllWidgets()
+                return
+            }
+            
+            if (!isArmed) return
+            
+            isArmed = false
+            isArming = false
+            sharedPrefs.edit()
+                .putBoolean("IS_ARMED", false)
+                .putBoolean("IS_ARMING", false)
+                .apply()
+            
             sensorManager.unregisterListener(this)
             try {
                 unregisterReceiver(securityReceiver)
@@ -255,8 +307,8 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
             parkedLocation = null
             stopSiren()
             
+            val volume = sharedPrefs.getInt("ALARM_VOLUME", 100)
             val silentMode = sharedPrefs.getBoolean("SILENT_MODE", false)
-            // Beep de confirmación (desactivado)
             if (volume > 0 && !silentMode) {
                 scope.launch {
                     delay(250)
@@ -265,8 +317,71 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
                 }
             }
             
+            val intent = android.content.Intent("com.davoe.karoosentinel.STATE_CHANGED").apply {
+                setPackage(packageName)
+                putExtra("IS_ARMED", false)
+                putExtra("IS_ARMING", false)
+            }
+            sendBroadcast(intent)
+            updateAllWidgets()
             sendTelegramMessage(getString(R.string.tg_disarmed))
         }
+    }
+
+    private fun completeArming() {
+        isArmed = true
+        isArming = false
+        val sharedPrefs = getSharedPreferences("SentinelPrefs", Context.MODE_PRIVATE)
+        sharedPrefs.edit()
+            .putBoolean("IS_ARMED", true)
+            .putBoolean("IS_ARMING", false)
+            .apply()
+        
+        isFirstReading = true
+        isAlarmTriggered = false
+        parkedLocation = null
+        
+        accelerometer?.let {
+            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_UI)
+        }
+        
+        try {
+            if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000L, 5f, locationListener)
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error requesting location updates", e)
+        }
+        
+        val silentMode = sharedPrefs.getBoolean("SILENT_MODE", false)
+        val volume = sharedPrefs.getInt("ALARM_VOLUME", 100)
+        
+        val filter = android.content.IntentFilter().apply {
+            addAction(android.content.Intent.ACTION_SHUTDOWN)
+            addAction(android.bluetooth.BluetoothDevice.ACTION_ACL_DISCONNECTED)
+        }
+        registerReceiver(securityReceiver, filter)
+        
+        if (volume > 0 && !silentMode) {
+            scope.launch {
+                delay(250)
+                val tones = listOf(
+                    PlayBeepPattern.Tone(3500, 150),
+                    PlayBeepPattern.Tone(null, 50),
+                    PlayBeepPattern.Tone(3500, 150)
+                )
+                karooSystem?.dispatch(PlayBeepPattern(tones))
+            }
+        }
+        
+        val intent = android.content.Intent("com.davoe.karoosentinel.STATE_CHANGED").apply {
+            setPackage(packageName)
+            putExtra("IS_ARMED", true)
+            putExtra("IS_ARMING", false)
+        }
+        sendBroadcast(intent)
+        updateAllWidgets()
+        sendTelegramMessage(getString(R.string.tg_armed))
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
@@ -419,6 +534,7 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
 
     override fun onDestroy() {
         super.onDestroy()
+        armingJob?.cancel()
         sensorManager.unregisterListener(this)
         try {
             unregisterReceiver(securityReceiver)

@@ -34,4 +34,10 @@
     <string name="pin_dialog_error">PIN Errato</string>
     <string name="pin_dialog_ok">OK</string>
     <string name="pin_dialog_cancel">Annulla</string>
+    <string name="delay_label">⏱️ Ritardo di Attivazione</string>
+    <string name="delay_desc">Tempo per appoggiare o parcheggiare la bici prima che la sorveglianza inerziale si attivi.</string>
+    <string name="delay_instant">Immediato (0s)</string>
+    <string name="status_arming">ATTIVAZIONE IN %1$d SECONDI...</string>
+    <string name="status_desc_arming">Margine di sicurezza attivo. Puoi appoggiare la bicicletta.</string>
+    <string name="btn_cancel_arming">ANNULLA ATTIVAZIONE</string>
 </resources>

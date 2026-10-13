@@ -34,4 +34,10 @@
     <string name="pin_dialog_error">Incorrect PIN</string>
     <string name="pin_dialog_ok">OK</string>
     <string name="pin_dialog_cancel">Cancel</string>
+    <string name="delay_label">⏱️ Arming Delay</string>
+    <string name="delay_desc">Time to park or lean your bike before motion surveillance activates.</string>
+    <string name="delay_instant">Instant (0s)</string>
+    <string name="status_arming">ARMING IN %1$d SECONDS...</string>
+    <string name="status_desc_arming">Grace period active. You can lean or adjust your bike.</string>
+    <string name="btn_cancel_arming">CANCEL ARMING</string>
 </resources>
