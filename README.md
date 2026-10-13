@@ -4,6 +4,14 @@
 
 # Karoo Sentinel (v0.0.8 Stable) 🚨
 
+<p align="center">
+  <a href="https://github.com/DAVOE75/KarooSentinel/releases/latest"><img src="https://img.shields.io/github/v/release/DAVOE75/KarooSentinel?style=flat-square&logo=android&logoColor=white&label=Versi%C3%B3n&color=00C853" alt="Última versión" /></a>
+  <a href="https://github.com/DAVOE75/KarooSentinel/releases"><img src="https://img.shields.io/github/downloads/DAVOE75/KarooSentinel/total?style=flat-square&logo=github&logoColor=white&label=Descargas&color=0091EA" alt="Descargas totales" /></a>
+  <img src="https://img.shields.io/badge/Dispositivo-Karoo_2_•_Karoo_3-1B1B1B?style=flat-square&logo=googlemaps&logoColor=00E676" alt="Compatibilidad Karoo" />
+  <a href="https://github.com/DAVOE75/KarooSentinel/blob/master/LICENSE"><img src="https://img.shields.io/github/license/DAVOE75/KarooSentinel?style=flat-square&label=Licencia&color=455A64" alt="Licencia" /></a>
+  <a href="https://buymeacoffee.com/davoe75"><img src="https://img.shields.io/badge/Donar-Buy_Me_a_Coffee-FF813F?style=flat-square&logo=buy-me-a-coffee&logoColor=white" alt="Buy Me A Coffee" /></a>
+</p>
+
 *(Read in English below 👇)*
 
 **Karoo Sentinel** es una extensión de seguridad y anti-robo de código abierto desarrollada específicamente para los ciclocomputadores **Hammerhead Karoo (2 y superior)**. Utiliza los sensores integrados del dispositivo y el módulo GPS para detectar movimientos no autorizados de la bicicleta, haciendo sonar una alarma física y avisando al usuario en su móvil mediante Telegram.
