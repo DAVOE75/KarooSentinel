@@ -1,0 +1,52 @@
+name: Android Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Fix gradlew permissions and line endings
+        run: |
+          sed -i -e 's/\r$//' gradlew
+          chmod +x gradlew
+
+      - name: Build Release APK
+        run: ./gradlew assembleRelease --stacktrace
+
+      - name: Prepare APK Asset
+        run: |
+          mkdir -p release_assets
+          TAG_NAME="${GITHUB_REF#refs/tags/}"
+          if [ -z "$TAG_NAME" ] || [ "$TAG_NAME" = "refs/heads/master" ] || [ "$TAG_NAME" = "refs/heads/main" ]; then
+            TAG_NAME="v0.0.8"
+          fi
+          cp app/build/outputs/apk/release/app-release.apk release_assets/KarooSentinel-${TAG_NAME}.apk
+          cp app/build/outputs/apk/release/app-release.apk release_assets/KarooSentinel.apk
+
+      - name: Create GitHub Release and Upload APK
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
+        with:
+          files: release_assets/*
+          name: Karoo Sentinel ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true

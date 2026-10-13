@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo.png" alt="Main Screen" width="350"/>
+  <img src="assets/logo.png" alt="Karoo Sentinel Logo" width="350" />
 </p>
 
 # Karoo Sentinel (v0.0.8 Stable) 🚨
@@ -53,7 +53,7 @@ Actualmente Karoo Sentinel debe instalarse en tu dispositivo mediante ADB (Andro
 4. Descarga el último archivo .apk de la carpeta [releases](https://github.com/DAVOE75/KarooSentinel/tree/master/releases).
 5. Abre una terminal y ejecuta el siguiente comando:
    `ash
-   adb install KarooSentinel-v0.0.7.apk
+   adb install KarooSentinel-v0.0.8.apk
    `
 
 ### ⚙️ Configuración y Uso
@@ -125,7 +125,7 @@ Currently, Karoo Sentinel must be installed on your device via ADB (Android Debu
 4. Download the latest .apk file from the [releases folder](https://github.com/DAVOE75/KarooSentinel/tree/master/releases).
 5. Open a terminal and run the following command:
    `ash
-   adb install KarooSentinel-v0.0.7.apk
+   adb install KarooSentinel-v0.0.8.apk
    `
 
 ### ⚙️ Setup and Usage
