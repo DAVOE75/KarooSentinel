@@ -188,8 +188,10 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
         }
         
         if (isArmedState && !pin.isNullOrEmpty()) {
-            val intent = android.content.Intent(this, MainActivity::class.java).apply {
-                flags = android.content.Intent.FLAG_ACTIVITY_NEW_TASK or android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
+            val intent = android.content.Intent(this, PinAuthActivity::class.java).apply {
+                flags = android.content.Intent.FLAG_ACTIVITY_NEW_TASK or 
+                        android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                        android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
             }
             startActivity(intent)
         } else {
@@ -484,11 +486,11 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
             while (isActive) {
                 try {
                     val tones = listOf(
-                        PlayBeepPattern.Tone(4000, 200),
-                        PlayBeepPattern.Tone(5000, 200)
+                        PlayBeepPattern.Tone(4200, 250),
+                        PlayBeepPattern.Tone(5200, 250)
                     )
                     karooSystem?.dispatch(PlayBeepPattern(tones))
-                    delay(400)
+                    delay(700) // 500ms tones + 200ms clearance prevents queue accumulation
                 } catch (e: Exception) {
                     Log.e(TAG, "Error tocando beeper", e)
                 }
@@ -499,6 +501,13 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
     private fun stopSiren() {
         alarmJob?.cancel()
         alarmJob = null
+        try {
+            // Cut off hardware audio immediately by resetting system connection
+            karooSystem?.disconnect()
+            karooSystem?.connect()
+        } catch (e: Exception) {
+            Log.e(TAG, "Error resetting system audio", e)
+        }
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {

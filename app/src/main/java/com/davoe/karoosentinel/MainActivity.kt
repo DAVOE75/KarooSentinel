@@ -505,8 +505,9 @@ class MainActivity : ComponentActivity() {
             setPadding(0, 0, 0, 24)
         }
         
+        val currentPin = sharedPrefs.getString("SECURITY_PIN", "")
         val pinInput = EditText(this).apply {
-            hint = getString(R.string.pin_hint)
+            hint = if (currentPin.isNullOrEmpty()) getString(R.string.pin_hint) else "•••• (PIN activo)"
             setHintTextColor(Color.parseColor("#52525B"))
             setTextColor(Color.WHITE)
             textSize = 15f
@@ -514,7 +515,6 @@ class MainActivity : ComponentActivity() {
             imeOptions = EditorInfo.IME_ACTION_DONE
             isSingleLine = true
             maxLines = 1
-            setText(sharedPrefs.getString("SECURITY_PIN", ""))
             background = GradientDrawable().apply {
                 shape = GradientDrawable.RECTANGLE
                 cornerRadius = 20f
@@ -526,6 +526,8 @@ class MainActivity : ComponentActivity() {
                     hideKeyboard(v)
                     val newPin = text.toString().trim()
                     sharedPrefs.edit().putString("SECURITY_PIN", newPin).apply()
+                    setText("")
+                    hint = if (newPin.isEmpty()) getString(R.string.pin_hint) else "•••• (PIN activo)"
                     Toast.makeText(this@MainActivity, getString(R.string.toast_id_saved), Toast.LENGTH_SHORT).show()
                     true
                 } else {
@@ -547,6 +549,8 @@ class MainActivity : ComponentActivity() {
                 hideKeyboard(pinInput)
                 val newPin = pinInput.text.toString().trim()
                 sharedPrefs.edit().putString("SECURITY_PIN", newPin).apply()
+                pinInput.setText("")
+                pinInput.hint = if (newPin.isEmpty()) getString(R.string.pin_hint) else "•••• (PIN activo)"
                 Toast.makeText(this@MainActivity, getString(R.string.toast_id_saved), Toast.LENGTH_SHORT).show()
             }
         }

@@ -36,6 +36,12 @@
             android:showOnLockScreen="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
+        <activity
+            android:name=".PinAuthActivity"
+            android:exported="false"
+            android:showOnLockScreen="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <!-- Declaración del servicio de la extensión -->
         <service
             android:name=".SentinelExtension"
