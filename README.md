@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.png" alt="Main Screen" width="350"/>
+</p>
+
 # Karoo Sentinel (v0.0.7 Stable) 🚨
 
 *(Read in English below 👇)*
