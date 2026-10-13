@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      packages: read
 
     steps:
       - name: Checkout code
@@ -30,6 +31,9 @@ jobs:
 
       - name: Build Release APK
         run: ./gradlew assembleRelease --stacktrace
+        env:
+          GITHUB_USER: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Prepare APK Asset
         run: |
@@ -47,6 +51,7 @@ jobs:
         with:
           files: release_assets/*
           name: Karoo Sentinel ${{ github.ref_name }}
+          tag_name: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || 'v0.0.8' }}
           draft: false
           prerelease: false
           generate_release_notes: true
