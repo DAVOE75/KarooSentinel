@@ -24,6 +24,10 @@ import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import kotlinx.coroutines.*
+import java.net.HttpURLConnection
+import java.net.URL
+import java.net.URLEncoder
 
 class MainActivity : ComponentActivity() {
 
@@ -265,6 +269,9 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        val buttonsRow = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+        }
         val saveButton = Button(this).apply {
             text = getString(R.string.btn_save)
             setTextColor(Color.BLACK)
@@ -286,10 +293,66 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        val testButton = Button(this).apply {
+            text = getString(R.string.btn_test_telegram)
+            setTextColor(Color.WHITE)
+            textSize = 14f
+            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+            background = GradientDrawable().apply {
+                shape = GradientDrawable.RECTANGLE
+                cornerRadius = 20f
+                setColor(Color.parseColor("#27272A"))
+                setStroke(2, Color.parseColor("#38BDF8"))
+            }
+            setOnClickListener {
+                hideKeyboard(chatIdInput)
+                val targetId = chatIdInput.text.toString().trim()
+                if (targetId.isEmpty()) {
+                    Toast.makeText(this@MainActivity, getString(R.string.toast_id_empty), Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                
+                Toast.makeText(this@MainActivity, getString(R.string.toast_testing_telegram), Toast.LENGTH_SHORT).show()
+                
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val urlString = "https://api.telegram.org/bot${SentinelExtension.BOT_TOKEN}/sendMessage?chat_id=$targetId&text=${URLEncoder.encode(getString(R.string.tg_test_success), "UTF-8")}"
+                        val url = URL(urlString)
+                        val conn = url.openConnection() as HttpURLConnection
+                        conn.requestMethod = "GET"
+                        conn.connectTimeout = 8000
+                        conn.readTimeout = 8000
+                        val code = conn.responseCode
+                        
+                        withContext(Dispatchers.Main) {
+                            if (code == 200) {
+                                Toast.makeText(this@MainActivity, getString(R.string.toast_test_ok), Toast.LENGTH_LONG).show()
+                                sharedPrefs.edit().putString("CHAT_ID", targetId).apply()
+                            } else {
+                                android.app.AlertDialog.Builder(this@MainActivity)
+                                    .setTitle("⚠️ Telegram ($code)")
+                                    .setMessage(getString(R.string.tg_test_error_explain))
+                                    .setPositiveButton("OK", null)
+                                    .show()
+                            }
+                        }
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(this@MainActivity, "Error: ${e.localizedMessage ?: "Sin conexión"}", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+            }
+        }
+        val saveParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).apply { rightMargin = 12 }
+        val testParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).apply { leftMargin = 12 }
+        buttonsRow.addView(saveButton, saveParams)
+        buttonsRow.addView(testButton, testParams)
+
         val inputLayout = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
             addView(chatIdInput, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { bottomMargin = 24 })
-            addView(saveButton, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
+            addView(buttonsRow, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
         }
         telegramCard.addView(telegramLabel)
         telegramCard.addView(telegramDesc)

@@ -71,8 +71,6 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
     companion object {
         const val TAG = "SentinelExtension"
         const val BOT_TOKEN = "8621646072:AAFr1Eo4AlJk103bUnM1arCstr5ekqSM42o"
-        // TODO: Reemplazar con el CHAT_ID real del usuario
-        const val CHAT_ID = "595159484" 
         // Sensibilidad del movimiento (m/s^2). Bajarlo lo hace más sensible.
         const val MOVEMENT_THRESHOLD = 2.0f 
     }
@@ -516,7 +514,7 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
 
     private fun sendTelegramMessage(message: String) {
         val sharedPrefs = getSharedPreferences("SentinelPrefs", Context.MODE_PRIVATE)
-        val chatIdString = sharedPrefs.getString("CHAT_ID", CHAT_ID)
+        val chatIdString = sharedPrefs.getString("CHAT_ID", "")
         
         if (chatIdString.isNullOrEmpty()) {
             Log.e(TAG, "No Chat ID configured, cannot send Telegram message")

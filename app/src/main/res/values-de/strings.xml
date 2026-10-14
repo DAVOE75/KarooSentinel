@@ -9,11 +9,16 @@
     <string name="btn_deactivate">DEAKTIVIEREN</string>
     <string name="settings_title">⚙️ KONFIGURATION</string>
     <string name="telegram_label">💬 Telegram Chat ID</string>
-    <string name="telegram_desc">Sende eine Nachricht an @userinfobot auf Telegram und füge hier deine numerische ID ein.</string>
+    <string name="telegram_desc">1. Öffne @DavoeKarooBot auf Telegram und tippe auf START.\n2. Sende eine Nachricht an @userinfobot für deine ID und füge sie hier ein.</string>
     <string name="chat_id_hint">Deine numerische ID</string>
     <string name="btn_save">SPEICHERN</string>
+    <string name="btn_test_telegram">TESTEN</string>
     <string name="toast_id_saved">ID erfolgreich gespeichert</string>
     <string name="toast_id_empty">Die ID darf nicht leer sein</string>
+    <string name="toast_testing_telegram">Testnachricht wird gesendet...</string>
+    <string name="toast_test_ok">✅ Nachricht gesendet! Überprüfe dein Telegram.</string>
+    <string name="tg_test_success">🔔 Karoo Sentinel: Telegram-Verbindung erfolgreich eingerichtet! Dein Gerät ist verknüpft.</string>
+    <string name="tg_test_error_explain">Nachricht konnte nicht zugestellt werden.\n\nBitte öffne @DavoeKarooBot auf Telegram und tippe auf START (/start), dann erneut versuchen.</string>
     <string name="volume_label">🔊 Sirenenlautstärke</string>
     <string name="volume_desc">Wische ganz nach links, um den Stumm-Modus zu aktivieren.</string>
     <string name="alert_movement_detected">BEWEGUNG\nERKANNT</string>
