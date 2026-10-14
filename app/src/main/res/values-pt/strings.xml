@@ -45,4 +45,5 @@
     <string name="status_arming">A ARMAR EM %1$d SEGUNDOS...</string>
     <string name="status_desc_arming">Período de tolerância ativo. Pode posicionar a bicicleta.</string>
     <string name="btn_cancel_arming">CANCELAR ARMAMENTO</string>
+    <string name="tg_no_internet">Sem conexão com a Internet no Karoo.\n\nVerifique se o Karoo está conectado ao Wi-Fi ou ao ponto de acesso do seu celular.</string>
 </resources>

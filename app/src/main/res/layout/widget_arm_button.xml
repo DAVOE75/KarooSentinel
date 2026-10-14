@@ -11,4 +11,18 @@
         android:layout_gravity="center"
         android:padding="8dp"
         android:src="@drawable/ic_lock_open" />
+
+    <TextView
+        android:id="@+id/widget_countdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="#FDE047"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:shadowColor="#000000"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="10"
+        android:visibility="gone" />
 </FrameLayout>

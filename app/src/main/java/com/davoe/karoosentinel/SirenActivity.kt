@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.ComponentActivity
@@ -18,22 +19,43 @@ import kotlinx.coroutines.*
 
 class SirenActivity : ComponentActivity() {
 
+    companion object {
+        var instance: SirenActivity? = null
+
+        fun close() {
+            instance?.finish()
+            instance = null
+        }
+    }
+
     private val scope = CoroutineScope(Dispatchers.Main + Job())
     private lateinit var mainLayout: LinearLayout
     
     private val stateReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            if (intent?.action == "com.davoe.karoosentinel.STATE_CHANGED") {
-                val isArmed = getSharedPreferences("SentinelPrefs", Context.MODE_PRIVATE).getBoolean("IS_ARMED", false)
-                if (!isArmed) {
-                    finish() // Close if it was disarmed from somewhere else
+            val action = intent?.action
+            if (action == "com.davoe.karoosentinel.STATE_CHANGED" || action == "com.davoe.karoosentinel.CLOSE_SIREN") {
+                val isArmedExtra = intent?.getBooleanExtra("IS_ARMED", true) ?: true
+                val isArmedPref = getSharedPreferences("SentinelPrefs", Context.MODE_PRIVATE).getBoolean("IS_ARMED", false)
+                if (!isArmedExtra || !isArmedPref || action == "com.davoe.karoosentinel.CLOSE_SIREN") {
+                    finish()
                 }
             }
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        instance = this
+        val isArmed = getSharedPreferences("SentinelPrefs", Context.MODE_PRIVATE).getBoolean("IS_ARMED", false)
+        if (!isArmed) {
+            finish()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        instance = this
         
         // Turn screen on and keep it on, show over lockscreen
         window.addFlags(
@@ -49,11 +71,12 @@ class SirenActivity : ComponentActivity() {
             setPadding(48, 64, 48, 64)
         }
 
-        val iconView = TextView(this).apply {
-            text = "🚨"
-            textSize = 64f
-            gravity = Gravity.CENTER
-            setPadding(0, 0, 0, 16)
+        val iconView = ImageView(this).apply {
+            setImageResource(R.drawable.ic_launcher)
+            val sizePx = (56 * resources.displayMetrics.density).toInt()
+            layoutParams = LinearLayout.LayoutParams(sizePx, sizePx).apply {
+                bottomMargin = (20 * resources.displayMetrics.density).toInt()
+            }
         }
 
         val alertText = TextView(this).apply {
@@ -96,24 +119,12 @@ class SirenActivity : ComponentActivity() {
                     val pin = sharedPrefs.getString("SECURITY_PIN", "")
                     
                     if (!pin.isNullOrEmpty()) {
-                        val input = android.widget.EditText(this@SirenActivity).apply {
-                            inputType = android.text.InputType.TYPE_CLASS_NUMBER or android.text.InputType.TYPE_NUMBER_VARIATION_PASSWORD
+                        val intent = Intent(this@SirenActivity, PinAuthActivity::class.java).apply {
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or 
+                                    Intent.FLAG_ACTIVITY_CLEAR_TOP or 
+                                    Intent.FLAG_ACTIVITY_SINGLE_TOP
                         }
-                        android.app.AlertDialog.Builder(this@SirenActivity)
-                            .setTitle(getString(R.string.pin_dialog_title))
-                            .setView(input)
-                            .setPositiveButton(getString(R.string.pin_dialog_ok)) { _, _ ->
-                                if (input.text.toString() == pin) {
-                                    val intent = Intent(this@SirenActivity, SentinelExtension::class.java)
-                                    intent.action = "com.davoe.karoosentinel.DISARM"
-                                    startService(intent)
-                                    finish()
-                                } else {
-                                    android.widget.Toast.makeText(this@SirenActivity, getString(R.string.pin_dialog_error), android.widget.Toast.LENGTH_SHORT).show()
-                                }
-                            }
-                            .setNegativeButton(getString(R.string.pin_dialog_cancel), null)
-                            .show()
+                        startActivity(intent)
                     } else {
                         val intent = Intent(this@SirenActivity, SentinelExtension::class.java)
                         intent.action = "com.davoe.karoosentinel.DISARM"
@@ -139,7 +150,7 @@ class SirenActivity : ComponentActivity() {
         }
         setContentView(scrollView)
         
-        // Efecto visual de destello premium
+        // Visual flashing effect
         scope.launch {
             var isBright = true
             while (isActive) {
@@ -157,12 +168,15 @@ class SirenActivity : ComponentActivity() {
                     }
                 }
                 isBright = !isBright
-                delay(300) // Flash intermedio
+                delay(300)
             }
         }
         
-        // Listen to state changes
-        val filter = IntentFilter("com.davoe.karoosentinel.STATE_CHANGED")
+        // Listen to state changes and close broadcasts
+        val filter = IntentFilter().apply {
+            addAction("com.davoe.karoosentinel.STATE_CHANGED")
+            addAction("com.davoe.karoosentinel.CLOSE_SIREN")
+        }
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
             registerReceiver(stateReceiver, filter, Context.RECEIVER_NOT_EXPORTED)
         } else {
@@ -172,7 +186,10 @@ class SirenActivity : ComponentActivity() {
     
     override fun onDestroy() {
         super.onDestroy()
+        if (instance == this) instance = null
         scope.cancel()
-        unregisterReceiver(stateReceiver)
+        try {
+            unregisterReceiver(stateReceiver)
+        } catch (e: Exception) {}
     }
 }

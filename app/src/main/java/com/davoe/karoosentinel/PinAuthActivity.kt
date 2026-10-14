@@ -117,10 +117,19 @@ class PinAuthActivity : ComponentActivity() {
                 val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
                 imm?.hideSoftInputFromWindow(pinInput.windowToken, 0)
                 
+                // Cerrar inmediatamente SirenActivity para no dejar pantalla fantasma
+                SirenActivity.close()
+                
                 val intent = Intent(this@PinAuthActivity, SentinelExtension::class.java).apply {
                     action = "com.davoe.karoosentinel.DISARM"
                 }
                 startService(intent)
+                
+                val closeBroadcast = Intent("com.davoe.karoosentinel.CLOSE_SIREN").apply {
+                    setPackage(packageName)
+                }
+                sendBroadcast(closeBroadcast)
+                
                 finish()
             } else {
                 pinInput.setText("")

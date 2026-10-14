@@ -45,4 +45,5 @@
     <string name="status_arming">ATTIVAZIONE IN %1$d SECONDI...</string>
     <string name="status_desc_arming">Periodo di grazia attivo. Puoi posizionare la bicicletta.</string>
     <string name="btn_cancel_arming">ANNULLA ATTIVAZIONE</string>
+    <string name="tg_no_internet">Nessuna connessione Internet su Karoo.\n\nVerifica che il Karoo sia connesso al Wi-Fi o all\'hotspot del tuo cellulare.</string>
 </resources>

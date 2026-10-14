@@ -45,4 +45,5 @@
     <string name="status_arming">ARMEMENT DANS %1$d SECONDES...</string>
     <string name="status_desc_arming">Délai de grâce actif. Vous pouvez ajuster ou poser le vélo.</string>
     <string name="btn_cancel_arming">ANNULER L\'ARMEMENT</string>
+    <string name="tg_no_internet">Pas de connexion Internet sur le Karoo.\n\nVérifiez que le Karoo est connecté au Wi-Fi ou au partage de connexion de votre mobile.</string>
 </resources>

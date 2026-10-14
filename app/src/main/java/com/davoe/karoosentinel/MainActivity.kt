@@ -360,30 +360,69 @@ class MainActivity : ComponentActivity() {
                 Toast.makeText(this@MainActivity, getString(R.string.toast_testing_telegram), Toast.LENGTH_SHORT).show()
                 
                 CoroutineScope(Dispatchers.IO).launch {
-                    try {
-                        val urlString = "https://api.telegram.org/bot${SentinelExtension.BOT_TOKEN}/sendMessage?chat_id=$targetId&text=${URLEncoder.encode(getString(R.string.tg_test_success), "UTF-8")}"
-                        val url = URL(urlString)
-                        val conn = url.openConnection() as HttpURLConnection
-                        conn.requestMethod = "GET"
-                        conn.connectTimeout = 8000
-                        conn.readTimeout = 8000
-                        val code = conn.responseCode
-                        
-                        withContext(Dispatchers.Main) {
-                            if (code == 200) {
-                                Toast.makeText(this@MainActivity, getString(R.string.toast_test_ok), Toast.LENGTH_LONG).show()
-                                sharedPrefs.edit().putString("CHAT_ID", targetId).apply()
-                            } else {
-                                android.app.AlertDialog.Builder(this@MainActivity)
-                                    .setTitle("Telegram")
-                                    .setMessage(getString(R.string.tg_test_error_explain))
-                                    .setPositiveButton("OK", null)
-                                    .show()
+                    var success = false
+                    var lastException: Exception? = null
+                    var responseCode = -1
+
+                    for (attempt in 1..2) {
+                        var conn: HttpURLConnection? = null
+                        try {
+                            val urlString = "https://api.telegram.org/bot${SentinelExtension.BOT_TOKEN}/sendMessage?chat_id=$targetId&text=${URLEncoder.encode(getString(R.string.tg_test_success), "UTF-8")}"
+                            val url = URL(urlString)
+                            conn = (url.openConnection() as HttpURLConnection).apply {
+                                requestMethod = "GET"
+                                connectTimeout = 8000
+                                readTimeout = 8000
+                                useCaches = false
+                                setRequestProperty("Connection", "close")
                             }
+                            responseCode = conn.responseCode
+                            val stream = if (responseCode in 200..299) conn.inputStream else conn.errorStream
+                            stream?.bufferedReader()?.use { it.readText() }
+                            
+                            if (responseCode == 200) {
+                                success = true
+                                break
+                            } else {
+                                break // Telegram server replied with non-200, no need to retry
+                            }
+                        } catch (e: Exception) {
+                            lastException = e
+                            if (attempt < 2) {
+                                delay(1500)
+                            }
+                        } finally {
+                            try {
+                                conn?.disconnect()
+                            } catch (e: Exception) {}
                         }
-                    } catch (e: Exception) {
-                        withContext(Dispatchers.Main) {
-                            Toast.makeText(this@MainActivity, "Error: ${e.localizedMessage ?: "Sin conexión"}", Toast.LENGTH_LONG).show()
+                    }
+
+                    withContext(Dispatchers.Main) {
+                        if (success) {
+                            Toast.makeText(this@MainActivity, getString(R.string.toast_test_ok), Toast.LENGTH_LONG).show()
+                            sharedPrefs.edit().putString("CHAT_ID", targetId).apply()
+                        } else if (responseCode != -1) {
+                            android.app.AlertDialog.Builder(this@MainActivity)
+                                .setTitle("Telegram")
+                                .setMessage(getString(R.string.tg_test_error_explain))
+                                .setPositiveButton("OK", null)
+                                .show()
+                        } else {
+                            val isNetworkError = lastException is java.net.UnknownHostException || 
+                                                 lastException is java.net.ConnectException || 
+                                                 lastException is java.net.SocketTimeoutException
+                            val title = if (isNetworkError) "Wi-Fi / Internet" else "Error"
+                            val msg = if (isNetworkError) {
+                                getString(R.string.tg_no_internet)
+                            } else {
+                                "Error: ${lastException?.localizedMessage ?: "Sin conexión"}"
+                            }
+                            android.app.AlertDialog.Builder(this@MainActivity)
+                                .setTitle(title)
+                                .setMessage(msg)
+                                .setPositiveButton("OK", null)
+                                .show()
                         }
                     }
                 }

@@ -37,17 +37,32 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
         try {
             val sharedPrefs = context.getSharedPreferences("SentinelPrefs", Context.MODE_PRIVATE)
             val isArmed = sharedPrefs.getBoolean("IS_ARMED", false)
+            val isArming = sharedPrefs.getBoolean("IS_ARMING", false)
+            val remainingSeconds = sharedPrefs.getInt("ARMING_REMAINING", 0)
+            
             val views = android.widget.RemoteViews(context.packageName, R.layout.widget_arm_button)
-            if (isArmed) {
+            
+            if (isArming && remainingSeconds > 0) {
+                views.setImageViewResource(R.id.widget_icon, R.drawable.ic_lock_arming)
+                views.setViewVisibility(R.id.widget_countdown, android.view.View.VISIBLE)
+                views.setTextViewText(R.id.widget_countdown, remainingSeconds.toString())
+            } else if (isArmed) {
                 views.setImageViewResource(R.id.widget_icon, R.drawable.ic_lock_closed)
+                views.setViewVisibility(R.id.widget_countdown, android.view.View.GONE)
             } else {
                 views.setImageViewResource(R.id.widget_icon, R.drawable.ic_lock_open)
+                views.setViewVisibility(R.id.widget_countdown, android.view.View.GONE)
             }
             
             val intent = android.content.Intent(context, SentinelExtension::class.java).apply {
                 action = "com.davoe.karoosentinel.TOGGLE_ALARM"
             }
-            val pendingIntent = android.app.PendingIntent.getService(context, 0, intent, android.app.PendingIntent.FLAG_UPDATE_CURRENT or android.app.PendingIntent.FLAG_IMMUTABLE)
+            val pendingIntent = android.app.PendingIntent.getService(
+                context, 
+                0, 
+                intent, 
+                android.app.PendingIntent.FLAG_UPDATE_CURRENT or android.app.PendingIntent.FLAG_IMMUTABLE
+            )
             views.setOnClickPendingIntent(R.id.widget_icon, pendingIntent)
             
             emitter.updateView(views)
@@ -77,7 +92,7 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
 
     private lateinit var sensorManager: SensorManager
     private var accelerometer: Sensor? = null
-    private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    private var scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     
     private var isArmed = false
     private var isArming = false
@@ -150,6 +165,10 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
     override fun onCreate() {
         super.onCreate()
         Log.d(TAG, "Karoo Sentinel Started")
+        
+        if (!scope.isActive) {
+            scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+        }
         
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
@@ -235,6 +254,7 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
                             putExtra("REMAINING_SECONDS", sec)
                         }
                         sendBroadcast(tickIntent)
+                        updateAllWidgets()
                         
                         if (volume > 0 && !silentMode) {
                             try {
@@ -266,6 +286,7 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
                 sharedPrefs.edit()
                     .putBoolean("IS_ARMING", false)
                     .putBoolean("IS_ARMED", false)
+                    .putInt("ARMING_REMAINING", 0)
                     .apply()
                 
                 val volume = sharedPrefs.getInt("ALARM_VOLUME", 100)
@@ -287,13 +308,20 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
                 return
             }
             
-            if (!isArmed) return
+            if (!isArmed) {
+                stopSiren()
+                SirenActivity.close()
+                return
+            }
             
             isArmed = false
             isArming = false
+            isAlarmTriggered = false
+            lastAlertTime = 0L
             sharedPrefs.edit()
                 .putBoolean("IS_ARMED", false)
                 .putBoolean("IS_ARMING", false)
+                .putInt("ARMING_REMAINING", 0)
                 .apply()
             
             sensorManager.unregisterListener(this)
@@ -303,9 +331,9 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
             try {
                 locationManager.removeUpdates(locationListener)
             } catch (e: Exception) {}
-            isAlarmTriggered = false
             parkedLocation = null
             stopSiren()
+            SirenActivity.close()
             
             val volume = sharedPrefs.getInt("ALARM_VOLUME", 100)
             val silentMode = sharedPrefs.getBoolean("SILENT_MODE", false)
@@ -323,6 +351,12 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
                 putExtra("IS_ARMING", false)
             }
             sendBroadcast(intent)
+            
+            val closeIntent = android.content.Intent("com.davoe.karoosentinel.CLOSE_SIREN").apply {
+                setPackage(packageName)
+            }
+            sendBroadcast(closeIntent)
+            
             updateAllWidgets()
             sendTelegramMessage(getString(R.string.tg_disarmed))
         }
@@ -514,27 +548,65 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
 
     private fun sendTelegramMessage(message: String) {
         val sharedPrefs = getSharedPreferences("SentinelPrefs", Context.MODE_PRIVATE)
-        val chatIdString = sharedPrefs.getString("CHAT_ID", "")
+        val chatIdString = sharedPrefs.getString("CHAT_ID", "")?.trim() ?: ""
         
-        if (chatIdString.isNullOrEmpty()) {
+        if (chatIdString.isEmpty()) {
             Log.e(TAG, "No Chat ID configured, cannot send Telegram message")
             return
         }
 
         val chatIds = chatIdString.split(",").map { it.trim() }.filter { it.isNotEmpty() }
 
+        if (!scope.isActive) {
+            scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+        }
+
         scope.launch {
-            for (chatId in chatIds) {
-                try {
-                    val urlString = "https://api.telegram.org/bot$BOT_TOKEN/sendMessage?chat_id=$chatId&text=${java.net.URLEncoder.encode(message, "UTF-8")}"
-                    val url = URL(urlString)
-                    val connection = url.openConnection() as HttpURLConnection
-                    connection.requestMethod = "GET"
-                    val responseCode = connection.responseCode
-                    Log.d(TAG, "Telegram sent to $chatId: $responseCode")
-                } catch (e: Exception) {
-                    Log.e(TAG, "Error enviando a Telegram $chatId", e)
+            val powerManager = getSystemService(Context.POWER_SERVICE) as? android.os.PowerManager
+            val wakeLock = powerManager?.newWakeLock(android.os.PowerManager.PARTIAL_WAKE_LOCK, "KarooSentinel:TelegramWakeLock")
+            try {
+                wakeLock?.acquire(15000L)
+            } catch (e: Exception) {}
+
+            try {
+                for (chatId in chatIds) {
+                    for (attempt in 1..3) {
+                        var connection: HttpURLConnection? = null
+                        try {
+                            val urlString = "https://api.telegram.org/bot$BOT_TOKEN/sendMessage?chat_id=$chatId&text=${java.net.URLEncoder.encode(message, "UTF-8")}"
+                            val url = URL(urlString)
+                            connection = (url.openConnection() as HttpURLConnection).apply {
+                                requestMethod = "GET"
+                                connectTimeout = 8000
+                                readTimeout = 8000
+                                useCaches = false
+                                setRequestProperty("Connection", "close")
+                            }
+                            val responseCode = connection.responseCode
+                            val stream = if (responseCode in 200..299) connection.inputStream else connection.errorStream
+                            stream?.bufferedReader()?.use { it.readText() }
+                            Log.d(TAG, "Telegram sent to $chatId (attempt $attempt): $responseCode")
+                            if (responseCode == 200) {
+                                break
+                            }
+                        } catch (e: Exception) {
+                            Log.w(TAG, "Attempt $attempt failed sending to $chatId: ${e.message}")
+                            if (attempt < 3) {
+                                delay(2000L) // Wait 2s for Wi-Fi / DNS re-association
+                            }
+                        } finally {
+                            try {
+                                connection?.disconnect()
+                            } catch (e: Exception) {}
+                        }
+                    }
                 }
+            } finally {
+                try {
+                    if (wakeLock?.isHeld == true) {
+                        wakeLock.release()
+                    }
+                } catch (e: Exception) {}
             }
         }
     }

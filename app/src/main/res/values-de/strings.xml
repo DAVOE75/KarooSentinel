@@ -45,4 +45,5 @@
     <string name="status_arming">AKTIVIERUNG IN %1$d SEKUNDEN...</string>
     <string name="status_desc_arming">Kulanzzeit aktiv. Du kannst das Fahrrad noch abstellen.</string>
     <string name="btn_cancel_arming">AKTIVIERUNG ABBRECHEN</string>
+    <string name="tg_no_internet">Keine Internetverbindung auf dem Karoo.\n\nBitte überprüfen Sie, ob Ihr Karoo mit WLAN oder Ihrem mobilen Hotspot verbunden ist.</string>
 </resources>

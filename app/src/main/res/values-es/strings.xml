@@ -45,4 +45,5 @@
     <string name="status_arming">ARMANDO EN %1$d SEGUNDOS...</string>
     <string name="status_desc_arming">Margen de seguridad activo. Puedes apoyar o colocar la bicicleta.</string>
     <string name="btn_cancel_arming">CANCELAR ARMADO</string>
+    <string name="tg_no_internet">Sin conexión a Internet en el Karoo.\n\nComprueba que el Wi-Fi o la Zona Wi-Fi (Hotspot) de tu móvil esté activa, conectada y con datos móviles.</string>
 </resources>

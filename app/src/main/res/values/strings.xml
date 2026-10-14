@@ -45,4 +45,5 @@
     <string name="status_arming">ARMING IN %1$d SECONDS...</string>
     <string name="status_desc_arming">Grace period active. You can lean or adjust your bike.</string>
     <string name="btn_cancel_arming">CANCEL ARMING</string>
+    <string name="tg_no_internet">No Internet connection on Karoo.\n\nPlease check that your Karoo is connected to Wi-Fi or your mobile Hotspot and has active data.</string>
 </resources>
