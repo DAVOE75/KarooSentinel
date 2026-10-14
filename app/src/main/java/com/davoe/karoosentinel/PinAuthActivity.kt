@@ -27,7 +27,8 @@ class PinAuthActivity : ComponentActivity() {
             if (intent?.action == "com.davoe.karoosentinel.STATE_CHANGED") {
                 val isArmed = getSharedPreferences("SentinelPrefs", Context.MODE_PRIVATE).getBoolean("IS_ARMED", false)
                 if (!isArmed) {
-                    finish()
+                    SirenActivity.close()
+                    finishAndRemoveTask()
                 }
             }
         }
@@ -130,7 +131,7 @@ class PinAuthActivity : ComponentActivity() {
                 }
                 sendBroadcast(closeBroadcast)
                 
-                finish()
+                finishAndRemoveTask()
             } else {
                 pinInput.setText("")
                 Toast.makeText(this@PinAuthActivity, getString(R.string.pin_dialog_error), Toast.LENGTH_SHORT).show()

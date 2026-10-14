@@ -23,7 +23,11 @@ class SirenActivity : ComponentActivity() {
         var instance: SirenActivity? = null
 
         fun close() {
-            instance?.finish()
+            try {
+                instance?.finishAndRemoveTask()
+            } catch (e: Exception) {
+                instance?.finish()
+            }
             instance = null
         }
     }
@@ -38,7 +42,7 @@ class SirenActivity : ComponentActivity() {
                 val isArmedExtra = intent?.getBooleanExtra("IS_ARMED", true) ?: true
                 val isArmedPref = getSharedPreferences("SentinelPrefs", Context.MODE_PRIVATE).getBoolean("IS_ARMED", false)
                 if (!isArmedExtra || !isArmedPref || action == "com.davoe.karoosentinel.CLOSE_SIREN") {
-                    finish()
+                    finishAndRemoveTask()
                 }
             }
         }
@@ -49,7 +53,7 @@ class SirenActivity : ComponentActivity() {
         instance = this
         val isArmed = getSharedPreferences("SentinelPrefs", Context.MODE_PRIVATE).getBoolean("IS_ARMED", false)
         if (!isArmed) {
-            finish()
+            finishAndRemoveTask()
         }
     }
 
@@ -119,17 +123,13 @@ class SirenActivity : ComponentActivity() {
                     val pin = sharedPrefs.getString("SECURITY_PIN", "")
                     
                     if (!pin.isNullOrEmpty()) {
-                        val intent = Intent(this@SirenActivity, PinAuthActivity::class.java).apply {
-                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or 
-                                    Intent.FLAG_ACTIVITY_CLEAR_TOP or 
-                                    Intent.FLAG_ACTIVITY_SINGLE_TOP
-                        }
+                        val intent = Intent(this@SirenActivity, PinAuthActivity::class.java)
                         startActivity(intent)
                     } else {
                         val intent = Intent(this@SirenActivity, SentinelExtension::class.java)
                         intent.action = "com.davoe.karoosentinel.DISARM"
                         startService(intent)
-                        finish()
+                        finishAndRemoveTask()
                     }
                 }.start()
             }

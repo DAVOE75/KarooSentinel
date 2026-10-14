@@ -26,6 +26,8 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
+            android:launchMode="singleTask"
+            android:taskAffinity="com.davoe.karoosentinel.main"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,12 +39,18 @@
             android:name=".SirenActivity"
             android:exported="false"
             android:showOnLockScreen="true"
+            android:taskAffinity="com.davoe.karoosentinel.siren"
+            android:excludeFromRecents="true"
+            android:autoRemoveFromRecents="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
             android:name=".PinAuthActivity"
             android:exported="false"
             android:showOnLockScreen="true"
+            android:taskAffinity="com.davoe.karoosentinel.siren"
+            android:excludeFromRecents="true"
+            android:autoRemoveFromRecents="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <!-- Declaración del servicio de la extensión -->
