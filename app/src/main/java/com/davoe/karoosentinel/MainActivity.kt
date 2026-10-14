@@ -17,6 +17,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.SeekBar
@@ -54,6 +55,30 @@ class MainActivity : ComponentActivity() {
         view.clearFocus()
     }
 
+    private fun createSectionHeader(iconRes: Int, text: String): LinearLayout {
+        return LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.CENTER_VERTICAL
+            setPadding(0, 0, 0, 16)
+            
+            val icon = ImageView(this@MainActivity).apply {
+                setImageResource(iconRes)
+                val sizePx = (20 * resources.displayMetrics.density).toInt()
+                layoutParams = LinearLayout.LayoutParams(sizePx, sizePx).apply {
+                    rightMargin = (10 * resources.displayMetrics.density).toInt()
+                }
+            }
+            val label = TextView(this@MainActivity).apply {
+                this.text = text
+                setTextColor(Color.parseColor("#E4E4E7"))
+                textSize = 15f
+                typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+            }
+            addView(icon)
+            addView(label)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
@@ -75,15 +100,28 @@ class MainActivity : ComponentActivity() {
         }
 
         // --- HEADER ---
-        val titleView = TextView(this).apply {
-            text = "🛡️ ${getString(R.string.app_name).uppercase()}"
-            setTextColor(Color.WHITE)
-            textSize = 26f
-            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+        val headerLayout = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
             gravity = Gravity.CENTER
-            letterSpacing = 0.05f
             setPadding(0, 0, 0, 8)
         }
+        val appIcon = ImageView(this).apply {
+            setImageResource(R.drawable.ic_launcher)
+            val sizePx = (32 * resources.displayMetrics.density).toInt()
+            layoutParams = LinearLayout.LayoutParams(sizePx, sizePx).apply {
+                rightMargin = (12 * resources.displayMetrics.density).toInt()
+            }
+        }
+        val titleView = TextView(this).apply {
+            text = getString(R.string.app_name).uppercase()
+            setTextColor(Color.WHITE)
+            textSize = 24f
+            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+            gravity = Gravity.CENTER_VERTICAL
+            letterSpacing = 0.05f
+        }
+        headerLayout.addView(appIcon)
+        headerLayout.addView(titleView)
         val subtitleView = TextView(this).apply {
             text = getString(R.string.subtitle)
             setTextColor(Color.parseColor("#A1A1AA")) // Zinc 400
@@ -204,13 +242,26 @@ class MainActivity : ComponentActivity() {
         }
         
         // --- SETTINGS SECTION ---
-        val settingsTitle = TextView(this).apply {
-            text = getString(R.string.settings_title)
-            setTextColor(Color.WHITE)
-            textSize = 16f
-            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-            gravity = Gravity.START
+        val settingsHeader = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.CENTER_VERTICAL
             setPadding(16, 32, 16, 16)
+            val icon = ImageView(this@MainActivity).apply {
+                setImageResource(R.drawable.ic_tune)
+                val sizePx = (18 * resources.displayMetrics.density).toInt()
+                layoutParams = LinearLayout.LayoutParams(sizePx, sizePx).apply {
+                    rightMargin = (10 * resources.displayMetrics.density).toInt()
+                }
+            }
+            val title = TextView(this@MainActivity).apply {
+                text = getString(R.string.settings_title)
+                setTextColor(Color.WHITE)
+                textSize = 15f
+                typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+                letterSpacing = 0.05f
+            }
+            addView(icon)
+            addView(title)
         }
         
         // Telegram Card
@@ -223,13 +274,7 @@ class MainActivity : ComponentActivity() {
                 setColor(Color.parseColor("#18181B"))
             }
         }
-        val telegramLabel = TextView(this).apply {
-            text = getString(R.string.telegram_label)
-            setTextColor(Color.parseColor("#E4E4E7"))
-            textSize = 15f
-            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-            setPadding(0, 0, 0, 16)
-        }
+        val telegramHeader = createSectionHeader(R.drawable.ic_telegram, getString(R.string.telegram_label))
         val telegramDesc = TextView(this).apply {
             text = getString(R.string.telegram_desc)
             setTextColor(Color.parseColor("#A1A1AA"))
@@ -330,7 +375,7 @@ class MainActivity : ComponentActivity() {
                                 sharedPrefs.edit().putString("CHAT_ID", targetId).apply()
                             } else {
                                 android.app.AlertDialog.Builder(this@MainActivity)
-                                    .setTitle("⚠️ Telegram ($code)")
+                                    .setTitle("Telegram")
                                     .setMessage(getString(R.string.tg_test_error_explain))
                                     .setPositiveButton("OK", null)
                                     .show()
@@ -354,7 +399,7 @@ class MainActivity : ComponentActivity() {
             addView(chatIdInput, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { bottomMargin = 24 })
             addView(buttonsRow, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
         }
-        telegramCard.addView(telegramLabel)
+        telegramCard.addView(telegramHeader)
         telegramCard.addView(telegramDesc)
         telegramCard.addView(inputLayout)
         
@@ -372,11 +417,7 @@ class MainActivity : ComponentActivity() {
                 LinearLayout.LayoutParams.WRAP_CONTENT
             ).apply { topMargin = 32 }
         }
-        val delayLabel = TextView(this).apply {
-            text = getString(R.string.delay_label)
-            setTextColor(Color.parseColor("#E4E4E7"))
-            textSize = 15f
-            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+        val delayHeader = createSectionHeader(R.drawable.ic_timer, getString(R.string.delay_label)).apply {
             setPadding(0, 0, 0, 12)
         }
         val delayDesc = TextView(this).apply {
@@ -408,7 +449,7 @@ class MainActivity : ComponentActivity() {
                 override fun onStopTrackingTouch(seekBar: SeekBar?) {}
             })
         }
-        delayCard.addView(delayLabel)
+        delayCard.addView(delayHeader)
         delayCard.addView(delayDesc)
         delayCard.addView(delayValueText)
         delayCard.addView(delaySlider)
@@ -427,13 +468,7 @@ class MainActivity : ComponentActivity() {
                 LinearLayout.LayoutParams.WRAP_CONTENT
             ).apply { topMargin = 32 }
         }
-        val volumeLabel = TextView(this).apply {
-            text = getString(R.string.volume_label)
-            setTextColor(Color.parseColor("#E4E4E7"))
-            textSize = 15f
-            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-            setPadding(0, 0, 0, 16)
-        }
+        val volumeHeader = createSectionHeader(R.drawable.ic_volume, getString(R.string.volume_label))
         val volumeDesc = TextView(this).apply {
             text = getString(R.string.volume_desc)
             setTextColor(Color.parseColor("#A1A1AA"))
@@ -451,7 +486,7 @@ class MainActivity : ComponentActivity() {
                 override fun onStopTrackingTouch(seekBar: SeekBar?) {}
             })
         }
-        volumeCard.addView(volumeLabel)
+        volumeCard.addView(volumeHeader)
         volumeCard.addView(volumeDesc)
         volumeCard.addView(volumeSlider)
         
@@ -469,13 +504,7 @@ class MainActivity : ComponentActivity() {
                 LinearLayout.LayoutParams.WRAP_CONTENT
             ).apply { topMargin = 32 }
         }
-        val sensitivityLabel = TextView(this).apply {
-            text = getString(R.string.sensitivity_label)
-            setTextColor(Color.parseColor("#E4E4E7"))
-            textSize = 15f
-            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-            setPadding(0, 0, 0, 16)
-        }
+        val sensitivityHeader = createSectionHeader(R.drawable.ic_sensors, getString(R.string.sensitivity_label))
         val sensitivityDesc = TextView(this).apply {
             text = getString(R.string.sensitivity_desc)
             setTextColor(Color.parseColor("#A1A1AA"))
@@ -493,7 +522,7 @@ class MainActivity : ComponentActivity() {
                 override fun onStopTrackingTouch(seekBar: SeekBar?) {}
             })
         }
-        sensitivityCard.addView(sensitivityLabel)
+        sensitivityCard.addView(sensitivityHeader)
         sensitivityCard.addView(sensitivityDesc)
         sensitivityCard.addView(sensitivitySlider)
         
@@ -516,11 +545,7 @@ class MainActivity : ComponentActivity() {
             orientation = LinearLayout.VERTICAL
             layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
         }
-        val silentLabel = TextView(this).apply {
-            text = getString(R.string.silent_mode_label)
-            setTextColor(Color.parseColor("#E4E4E7"))
-            textSize = 15f
-            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+        val silentHeader = createSectionHeader(R.drawable.ic_eye_off, getString(R.string.silent_mode_label)).apply {
             setPadding(0, 0, 0, 8)
         }
         val silentDesc = TextView(this).apply {
@@ -528,7 +553,7 @@ class MainActivity : ComponentActivity() {
             setTextColor(Color.parseColor("#A1A1AA"))
             textSize = 13f
         }
-        silentTextLayout.addView(silentLabel)
+        silentTextLayout.addView(silentHeader)
         silentTextLayout.addView(silentDesc)
         
         val silentSwitch = Switch(this).apply {
@@ -554,13 +579,7 @@ class MainActivity : ComponentActivity() {
                 LinearLayout.LayoutParams.WRAP_CONTENT
             ).apply { topMargin = 32 }
         }
-        val pinLabel = TextView(this).apply {
-            text = getString(R.string.pin_label)
-            setTextColor(Color.parseColor("#E4E4E7"))
-            textSize = 15f
-            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-            setPadding(0, 0, 0, 16)
-        }
+        val pinHeader = createSectionHeader(R.drawable.ic_key, getString(R.string.pin_label))
         val pinDesc = TextView(this).apply {
             text = getString(R.string.pin_desc)
             setTextColor(Color.parseColor("#A1A1AA"))
@@ -622,12 +641,12 @@ class MainActivity : ComponentActivity() {
             addView(pinInput, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { bottomMargin = 24 })
             addView(pinSaveButton, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
         }
-        pinCard.addView(pinLabel)
+        pinCard.addView(pinHeader)
         pinCard.addView(pinDesc)
         pinCard.addView(pinInputLayout)
         
         // --- ADD VIEWS ---
-        layout.addView(titleView)
+        layout.addView(headerLayout)
         layout.addView(subtitleView)
         layout.addView(statusCard, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { bottomMargin = 24 })
         layout.addView(mainButton, buttonParams)
@@ -635,7 +654,7 @@ class MainActivity : ComponentActivity() {
         val settingsContainer = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-            addView(settingsTitle)
+            addView(settingsHeader)
             addView(telegramCard)
             addView(delayCard)
             addView(volumeCard)

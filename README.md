@@ -2,7 +2,7 @@
   <img src="assets/logo.png" alt="Karoo Sentinel Logo" width="350" />
 </p>
 
-# Karoo Sentinel (v0.0.8 Stable) 🚨
+# Karoo Sentinel (v0.0.13)
 
 <p align="center">
   <a href="https://github.com/DAVOE75/KarooSentinel/releases/latest"><img src="https://img.shields.io/github/v/release/DAVOE75/KarooSentinel?style=flat-square&logo=android&logoColor=white&label=Versi%C3%B3n&color=00C853" alt="Última versión" /></a>
@@ -12,11 +12,11 @@
   <a href="https://buymeacoffee.com/davoe75"><img src="https://img.shields.io/badge/Donar-Buy_Me_a_Coffee-FF813F?style=flat-square&logo=buy-me-a-coffee&logoColor=white" alt="Buy Me A Coffee" /></a>
 </p>
 
-*(Read in English below 👇)*
+*(Read in English below)*
 
 **Karoo Sentinel** es una extensión de seguridad y anti-robo de código abierto desarrollada específicamente para los ciclocomputadores **Hammerhead Karoo (2 y superior)**. Utiliza los sensores integrados del dispositivo y el módulo GPS para detectar movimientos no autorizados de la bicicleta, haciendo sonar una alarma física y avisando al usuario en su móvil mediante Telegram.
 
-### ✨ Características Principales
+### Características Principales
 
 <p align="center">
   <img src="assets/main_screen.png" alt="Main Screen" width="230"/>
@@ -41,37 +41,36 @@
 
 * **Integración con SRAM AXS / Shimano Di2:** Te permite armar y desarmar el sistema cómodamente desde los "Bonus Buttons" ocultos en tus manetas de cambio electrónico.
 * **Modo "Destello de Sirena":** Al detectar intrusión, la pantalla del Karoo se enciende por encima de la pantalla de bloqueo y emite un destello pulsante de luz roja para llamar la atención.
-* **Soporte Multi-Idioma (i18n):** Se adapta automáticamente al idioma del sistema del Karoo (Soporte nativo para: 🇪🇸 Español, 🇬🇧 Inglés, 🇫🇷 Francés, 🇮🇹 Italiano, 🇩🇪 Alemán, 🇵🇹 Portugués).
+* **Soporte Multi-Idioma (i18n):** Se adapta automáticamente al idioma del sistema del Karoo (Soporte nativo para: Español, Inglés, Francés, Italiano, Alemán, Portugués).
 * **Diseño Nativo:** Icono vectorial puro y transparente integrado a la perfección con la interfaz y el launcher de Karoo (Estilo *Headwind*).
 
-### 🛠️ Cómo funciona
+### Funcionamiento
 
 La aplicación funciona como un servicio persistente en segundo plano. Cuando aparcas la bici en la puerta de la cafetería:
 1. Armas la alarma (desde la pantalla táctil de la App o tocando el botón de tu cambio Di2/SRAM).
 2. La aplicación registrará la posición inercial exacta y las coordenadas GPS de la bicicleta.
 3. Si alguien toca, mueve o intenta llevarse la bicicleta, los sensores detectarán una discrepancia inercial o una salida de la Geovalla, haciendo que la pantalla parpadee en rojo, la bocina física empiece a pitar agresivamente y te llegue un mensaje a tu móvil inmediatamente con la ubicación del robo.
 
-### 📥 Instalación
+### Instalación
 
-Actualmente Karoo Sentinel debe instalarse en tu dispositivo mediante ADB (Android Debug Bridge), ya que aprovecha permisos de nivel de sistema y el SDK de Hammerhead.
+Actualmente Karoo Sentinel puede instalarse a través de la **Karoo Appstore** o mediante ADB (Android Debug Bridge):
 
 1. Activa las **Opciones de Desarrollador** en tu Karoo (Settings > About > Toca 7 veces sobre Build Number).
 2. Activa la **Depuración USB** (Settings > Developer Options > USB Debugging).
 3. Conecta el Karoo a tu ordenador.
 4. Descarga el último archivo .apk de la carpeta [releases](https://github.com/DAVOE75/KarooSentinel/tree/master/releases).
 5. Abre una terminal y ejecuta el siguiente comando:
-   `ash
-   adb install KarooSentinel-v0.0.8.apk
-   `
+   ```bash
+   adb install KarooSentinel.apk
+   ```
 
-### ⚙️ Configuración y Uso
+### Configuración y Uso
 
 #### Configurar Notificaciones (Telegram)
-Para que las alertas lleguen a tu teléfono móvil, debes vincular tu ID:
-1. Abre **Telegram** en tu teléfono y busca al bot @userinfobot.
-2. Escríbele cualquier cosa. El bot te responderá con tu número de Id (Ejemplo: 595159484).
-3. Abre **Karoo Sentinel** en tu ciclocomputador.
-4. Escribe ese número en la casilla de configuración y pulsa **GUARDAR**.
+Para recibir las alertas en tu teléfono móvil:
+1. Abre **Telegram** y busca el bot oficial **`@KarooSentinelBot`**. Pulsa el botón **INICIAR** (o envía `/start`).
+2. Abre el bot **`@userinfobot`** y envíale un mensaje para conocer tu ID numérico.
+3. Abre **Karoo Sentinel** en tu ciclocomputador, introduce tu ID y pulsa **PROBAR** (o **Guardar**). Recibirás al instante una confirmación.
 
 #### Usar los botones SRAM AXS / Shimano Di2
 No necesitas quitarte los guantes ni tocar la pantalla del GPS para armar la alarma al bajarte de la bici.
@@ -84,11 +83,11 @@ No necesitas quitarte los guantes ni tocar la pantalla del GPS para armar la ala
 
 ---
 
-## 🇬🇧 English
+## English
 
 **Karoo Sentinel** is an open-source security and anti-theft extension developed specifically for **Hammerhead Karoo (2 and above)** cycling computers. It uses the device's built-in sensors and GPS module to detect unauthorized movement of the bicycle, sounding a physical alarm and alerting the user on their phone via Telegram.
 
-### ✨ Key Features
+### Key Features
 
 <p align="center">
   <img src="assets/main_screen.png" alt="Main Screen" width="230"/>
@@ -113,37 +112,36 @@ No necesitas quitarte los guantes ni tocar la pantalla del GPS para armar la ala
 
 * **SRAM AXS / Shimano Di2 Integration:** Allows you to arm and disarm the system conveniently from the hidden "Bonus Buttons" on your electronic shifters.
 * **"Siren Flash" Mode:** Upon detecting an intrusion, the Karoo screen wakes up over the lock screen and emits a pulsating red flash to draw attention.
-* **Multi-Language Support (i18n):** Automatically adapts to the Karoo's system language (Native support for: 🇪🇸 Spanish, 🇬🇧 English, 🇫🇷 French, 🇮🇹 Italian, 🇩🇪 German, 🇵🇹 Portuguese).
+* **Multi-Language Support (i18n):** Automatically adapts to the Karoo's system language (Native support for: Spanish, English, French, Italian, German, Portuguese).
 * **Native Design:** Clean, transparent vector icon that perfectly blends with the Karoo interface and launcher (*Headwind* style).
 
-### 🛠️ How it works
+### How It Works
 
 The app runs as a persistent background service. When you park your bike outside a coffee shop:
 1. You arm the alarm (from the App's touch screen or by clicking your Di2/SRAM button).
 2. The app will record the exact inertial position and GPS coordinates of the bicycle.
 3. If someone touches, moves, or tries to take the bike, the sensors will detect an inertial discrepancy or a Geofence breach, causing the screen to flash red, the physical horn to start beeping aggressively, and an immediate message to be sent to your phone with the location of the theft.
 
-### 📥 Installation
+### Installation
 
-Currently, Karoo Sentinel must be installed on your device via ADB (Android Debug Bridge), as it leverages system-level permissions and the Hammerhead SDK.
+Karoo Sentinel can be installed via the **Karoo Appstore** or through ADB (Android Debug Bridge):
 
 1. Enable **Developer Options** on your Karoo (Settings > About > Tap 7 times on Build Number).
 2. Enable **USB Debugging** (Settings > Developer Options > USB Debugging).
 3. Connect the Karoo to your computer.
 4. Download the latest .apk file from the [releases folder](https://github.com/DAVOE75/KarooSentinel/tree/master/releases).
 5. Open a terminal and run the following command:
-   `ash
-   adb install KarooSentinel-v0.0.8.apk
-   `
+   ```bash
+   adb install KarooSentinel.apk
+   ```
 
-### ⚙️ Setup and Usage
+### Configuration and Setup
 
-#### Setup Notifications (Telegram)
-For alerts to reach your mobile phone, you must link your ID:
-1. Open **Telegram** on your phone and search for the @userinfobot bot.
-2. Send it any message. The bot will reply with your Id number (Example: 595159484).
-3. Open **Karoo Sentinel** on your cycling computer.
-4. Type that number into the settings box and tap **SAVE**.
+#### Configure Notifications (Telegram)
+To receive real-time alerts on your phone:
+1. Open **Telegram**, search for the official bot **`@KarooSentinelBot`**, and tap **START** (or send `/start`).
+2. Message **`@userinfobot`** to retrieve your numerical Chat ID.
+3. Open **Karoo Sentinel** on your Karoo, enter your ID, and tap **TEST** (or **Save**). You will receive an immediate confirmation alert.
 
 #### Using SRAM AXS / Shimano Di2 buttons
 You don't need to take off your gloves or touch the GPS screen to arm the alarm when you get off the bike.

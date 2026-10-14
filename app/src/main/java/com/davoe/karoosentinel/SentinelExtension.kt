@@ -70,7 +70,7 @@ class SentinelExtension : KarooExtension("karoo_sentinel", "1.0"), SensorEventLi
 
     companion object {
         const val TAG = "SentinelExtension"
-        const val BOT_TOKEN = "8621646072:AAFr1Eo4AlJk103bUnM1arCstr5ekqSM42o"
+        const val BOT_TOKEN = "8982968162:AAHlMaH_BLgOp6LP6E-lJd4VfbvcdvU9Rd0"
         // Sensibilidad del movimiento (m/s^2). Bajarlo lo hace más sensible.
         const val MOVEMENT_THRESHOLD = 2.0f 
     }
