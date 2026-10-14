@@ -11,8 +11,8 @@ android {
         applicationId = "com.davoe.karoosentinel"
         minSdk = 26
         targetSdk = 34
-        versionCode = 114
-        versionName = "0.0.15"
+        versionCode = 115
+        versionName = "0.0.16"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

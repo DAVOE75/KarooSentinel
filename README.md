@@ -2,7 +2,7 @@
   <img src="assets/logo.png" alt="Karoo Sentinel Logo" width="350" />
 </p>
 
-# Karoo Sentinel (v0.0.15)
+# Karoo Sentinel (v0.0.16)
 
 <p align="center">
   <a href="https://github.com/DAVOE75/KarooSentinel/releases/latest"><img src="https://img.shields.io/github/v/release/DAVOE75/KarooSentinel?style=flat-square&logo=android&logoColor=white&label=Versi%C3%B3n&color=00C853" alt="Última versión" /></a>
